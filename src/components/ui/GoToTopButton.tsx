@@ -1,21 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUp } from "lucide-react";
 
 export default function GoToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
-      // Show when scrolled down 300px
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     };
+    
+    toggleVisibility();
 
     window.addEventListener("scroll", toggleVisibility);
     return () => window.removeEventListener("scroll", toggleVisibility);
@@ -26,7 +27,6 @@ export default function GoToTopButton() {
       top: 0,
       behavior: "smooth",
     });
-    // Remove hash from the URL
     if (window.location.hash) {
       history.replaceState(null, "", window.location.pathname);
     }
@@ -36,23 +36,26 @@ export default function GoToTopButton() {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          whileHover={{
-            scale: 1.05,
-            boxShadow: "6px 6px 0px 0px rgba(0,0,0,1)",
-            x: -2,
-            y: -2,
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          // We apply the base rotation of 45deg to create the diamond shape
+          // and layer hover scale / background color changes on top
+          whileHover={{ 
+            scale: 1.15,
+            backgroundColor: "#000075", // Project accent color from Navbar
+            boxShadow: "0 10px 25px -5px rgba(0, 0, 117, 0.4)" 
           }}
-          whileTap={{ scale: 0.95, boxShadow: "2px 2px 0px 0px rgba(0,0,0,1)", x: 2, y: 2 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          whileTap={{ scale: 0.95 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 p-3 bg-white border-4 border-black text-black font-mono font-bold uppercase transition-transform flex items-center gap-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-          aria-label="Go to top"
+          className="fixed bottom-10 right-10 z-50 w-12 h-12 bg-black flex items-center justify-center cursor-pointer outline-none border-none shadow-xl transition-colors duration-300"
+          style={{ rotate: 45, borderRadius: '8px' }}
+          aria-label="Back to top"
         >
-          <ArrowUp strokeWidth={3} className="w-5 h-5" />
-          <span className="hidden sm:inline">TOP</span>
+          {/* We must rotate the icon back -45deg so it points straight up */}
+          <div className="-rotate-45 origin-center flex items-center justify-center">
+            <ArrowUp className="text-white w-6 h-6" strokeWidth={2.5} />
+          </div>
         </motion.button>
       )}
     </AnimatePresence>
