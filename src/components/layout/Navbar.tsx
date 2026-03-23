@@ -87,7 +87,18 @@ export default function Navbar() {
                 <div className="w-full px-4 sm:px-8 md:px-12 h-16 sm:h-20 md:h-24 flex items-center justify-between">
 
                     {/* LEFT: Logo */}
-                    <Link href="#home" className="hover:opacity-80 transition-opacity block py-2">
+                    <Link 
+                        href="/" 
+                        onClick={(e) => {
+                            if (window.location.pathname === '/' || window.location.hash) {
+                                e.preventDefault();
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                // Optional: remove hash from URL
+                                history.replaceState(null, '', '/');
+                            }
+                        }}
+                        className="hover:opacity-80 transition-opacity block py-2"
+                    >
                         <Image
                             src="/logo-black.svg"
                             alt="Anuja Logo"
