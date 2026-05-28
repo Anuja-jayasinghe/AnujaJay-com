@@ -242,7 +242,7 @@ export function GitHubTimeline({
           </div>
 
           {weeks.map((week, weekIdx) => (
-            <div key={weekIdx} className="flex flex-col" style={{ gap: "3px" }}>
+            <div key={weekIdx} className="flex flex-col relative" style={{ gap: "3px" }}>
               {/* Month / Year label row */}
               <div className="h-3.5 flex items-end pb-0.5">
                 {week.yearLabel ? (
