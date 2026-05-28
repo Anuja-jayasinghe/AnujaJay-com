@@ -23,14 +23,16 @@ export function generateMetadata(): Metadata {
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-white">
+    <main className="flex min-h-screen flex-col bg-white w-full overflow-x-hidden relative">
       <SplashScreen />
       <Navbar />
-      <Hero />
-      <About />
-      <Portfolio />
-      <Skills />
-      <Contact />
+      <div className="w-full overflow-x-hidden relative">
+        <Hero />
+        <About />
+        <Portfolio />
+        <Skills />
+        <Contact />
+      </div>
       <Footer />
     </main>
   );
