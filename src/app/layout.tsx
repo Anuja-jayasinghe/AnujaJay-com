@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Turret_Road, Numans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import GoToTopButton from "@/components/ui/GoToTopButton";
 import "./globals.css";
 
 const siteUrl =
@@ -77,6 +78,13 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -90,6 +98,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <GoToTopButton />
       </body>
     </html>
   );
