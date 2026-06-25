@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ExternalLink, Award, Cpu, HardDrive, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -7,9 +7,19 @@ import certificatesData from "../../data/certificates.json";
 
 export default function ServerRack() {
   const [activeBladeId, setActiveBladeId] = useState<string | null>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const toggleBlade = (id: string) => {
     setActiveBladeId((prev) => (prev === id ? null : id));
+  };
+
+  const handleMouseEnter = (id: string) => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setActiveBladeId(id), 250);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
   };
 
   return (
@@ -32,7 +42,10 @@ export default function ServerRack() {
 
       {/* The Main Chassis - Natural Height (Scroll Trap Fixed) */}
       <div
-        onMouseLeave={() => setActiveBladeId(null)}
+        onMouseLeave={() => {
+          if (hoverTimer.current) clearTimeout(hoverTimer.current);
+          setActiveBladeId(null);
+        }}
         className="relative bg-gray-100 rounded-lg border-x-[12px] border-gray-200 shadow-2xl flex flex-col overflow-hidden"
       >
 
@@ -99,8 +112,8 @@ export default function ServerRack() {
                   {/* Blade UI - Button for a11y & interaction */}
                   <button
                     onClick={() => toggleBlade(cert.id)}
-                    onMouseEnter={() => setActiveBladeId(cert.id)}
-                    onMouseLeave={() => !isActive && setActiveBladeId(null)}
+                    onMouseEnter={() => handleMouseEnter(cert.id)}
+                    onMouseLeave={handleMouseLeave}
                     className={`w-full flex items-center h-[42px] px-3 gap-3 text-left transition-colors ${isActive ? "bg-white" : "bg-gray-50 hover:bg-white"
                       }`}
                   >
