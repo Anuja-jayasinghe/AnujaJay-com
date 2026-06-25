@@ -16,6 +16,17 @@
 
 html {
   overflow-x: hidden;
+  min-width: 320px;
+  /* push anchor targets below the fixed navbar (h-16 = 64px mobile) */
+  scroll-padding-top: 64px;
+}
+
+@media (min-width: 640px) {
+  html { scroll-padding-top: 80px; }  /* sm:h-20 */
+}
+
+@media (min-width: 768px) {
+  html { scroll-padding-top: 96px; }  /* md:h-24 */
 }
 
 body {
@@ -23,6 +34,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  min-width: 320px;
 }
 
 /* Custom utilities */

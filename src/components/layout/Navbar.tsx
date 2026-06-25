@@ -80,38 +80,52 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     return (
         <>
-            <header className="fixed top-0 z-50 w-full font-mono">
+            <header className="fixed top-0 z-50 w-full font-mono pointer-events-none">
                 <div className="w-full px-4 sm:px-8 md:px-12 h-16 sm:h-20 md:h-24 flex items-center justify-between">
 
-                    {/* LEFT: Logo */}
-                    <Link 
-                        href="/" 
+                    {/* LEFT: Logo — always floating */}
+                    <Link
+                        href="/"
                         onClick={(e) => {
                             if (window.location.pathname === '/' || window.location.hash) {
                                 e.preventDefault();
                                 window.scrollTo({ top: 0, behavior: "smooth" });
-                                // Optional: remove hash from URL
                                 history.replaceState(null, '', '/');
                             }
                         }}
-                        className="hover:opacity-80 transition-opacity block py-2"
+                        className="block py-2 pointer-events-auto transition-all duration-500 hover:opacity-70"
                     >
                         <Image
                             src="/logo-black.svg"
                             alt="Anuja Logo"
                             width={180}
                             height={60}
-                            className="w-32 sm:w-40 md:w-56 h-auto object-contain drop-shadow-sm"
+                            className={`h-auto object-contain transition-all duration-500 ${
+                                scrolled
+                                    ? "w-16 sm:w-20 opacity-40 hover:opacity-70"
+                                    : "w-32 sm:w-40 md:w-56 opacity-100"
+                            }`}
+                            style={{ filter: "drop-shadow(0 1px 3px rgba(255,255,255,0.8))" }}
                             priority
                         />
                     </Link>
 
-                    {/* RIGHT: Social Icons + Hamburger */}
-                    <div className="flex items-center gap-6">
-                        <div className="hidden sm:flex items-center gap-6 mr-2">
+                    {/* RIGHT: Social Icons (hide on scroll) + Hamburger */}
+                    <div className="flex items-center gap-6 pointer-events-auto">
+                        <div className={`hidden sm:flex items-center gap-6 mr-2 transition-all duration-300 ${
+                            scrolled ? "opacity-0 pointer-events-none" : "opacity-100"
+                        }`}>
                             <Link href="https://github.com/Anuja-jayasinghe" target="_blank" className="text-black hover:text-accent transition-colors">
                                 <Github className="w-6 h-6" />
                             </Link>
