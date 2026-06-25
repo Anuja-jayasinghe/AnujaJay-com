@@ -5,17 +5,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import certificatesData from "../../data/certificates.json";
 
-function FanSVG({ size = 22 }: { size?: number }) {
+const EQ_BARS: { delay: number; dur: number }[] = [
+  { delay: 0.00, dur: 0.55 }, { delay: 0.10, dur: 0.80 }, { delay: 0.25, dur: 0.50 },
+  { delay: 0.05, dur: 0.70 }, { delay: 0.30, dur: 0.60 }, { delay: 0.15, dur: 0.90 },
+  { delay: 0.40, dur: 0.50 }, { delay: 0.20, dur: 0.65 }, { delay: 0.35, dur: 0.75 },
+  { delay: 0.10, dur: 0.55 }, { delay: 0.45, dur: 0.85 }, { delay: 0.25, dur: 0.60 },
+  { delay: 0.00, dur: 0.70 }, { delay: 0.30, dur: 0.50 }, { delay: 0.15, dur: 0.65 },
+  { delay: 0.50, dur: 0.80 }, { delay: 0.08, dur: 0.60 }, { delay: 0.38, dur: 0.45 },
+];
+
+function SpectrumDisplay() {
   return (
-    <div className="animate-fan-spin" style={{ width: size, height: size }}>
-      <svg viewBox="0 0 24 24" width={size} height={size} fill="none">
-        <circle cx="12" cy="12" r="2.5" fill="#6b7280" />
-        <path d="M12 12 C12 6 17 4 17 8 C17 10 14 11 12 12Z" fill="#9ca3af" />
-        <path d="M12 12 C18 12 20 17 16 17 C14 17 13 14 12 12Z" fill="#9ca3af" />
-        <path d="M12 12 C12 18 7 20 7 16 C7 14 10 13 12 12Z" fill="#9ca3af" />
-        <path d="M12 12 C6 12 4 7 8 7 C10 7 11 10 12 12Z" fill="#9ca3af" />
-        <circle cx="12" cy="12" r="1.5" fill="#4b5563" />
-      </svg>
+    <div className="flex flex-col gap-1 px-3 py-1.5 bg-gray-300/80 rounded border border-gray-400/60 shadow-inner shrink-0">
+      <div className="flex items-end gap-[2px] h-5">
+        {EQ_BARS.map((bar, i) => (
+          <div
+            key={i}
+            className="w-[3px] rounded-[1px] animate-eq-bar"
+            style={{
+              animationDelay: `${bar.delay}s`,
+              animationDuration: `${bar.dur}s`,
+              background: i < 6
+                ? "rgba(34,197,94,0.7)"
+                : i < 13
+                ? "rgba(107,114,128,0.6)"
+                : "rgba(156,163,175,0.5)",
+            }}
+          />
+        ))}
+      </div>
+      <div className="flex justify-between">
+        <span className="text-[6px] font-mono text-green-600/60 uppercase tracking-widest">CPU</span>
+        <span className="text-[6px] font-mono text-gray-500/70 uppercase tracking-widest">NET</span>
+        <span className="text-[6px] font-mono text-gray-400/70 uppercase tracking-widest">I/O</span>
+      </div>
     </div>
   );
 }
@@ -52,7 +75,7 @@ export default function ServerRack() {
         <div className="text-[10px] font-mono text-gray-500 flex gap-4 uppercase items-center">
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block shadow-[0_0_4px_#22c55e]" />
-            Fans: Optimal
+            I/O: Active
           </span>
           <span className="text-green-600 animate-pulse">● System Live</span>
         </div>
@@ -66,11 +89,6 @@ export default function ServerRack() {
         }}
         className="relative bg-gray-100 rounded-lg border-x-[12px] border-gray-200 shadow-2xl flex flex-col overflow-hidden"
       >
-        {/* Rack scan line — sweeps top to bottom continuously */}
-        <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
-          <div className="animate-rack-scan absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-400/25 to-transparent" />
-        </div>
-
         {/* TOP PANEL */}
         <div className="relative h-12 w-full bg-gray-200 border-b border-gray-300 flex items-center px-4 overflow-hidden">
           <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[repeating-linear-gradient(90deg,#000,#000_1px,transparent_1px,transparent_4px)]" />
@@ -98,12 +116,8 @@ export default function ServerRack() {
               ))}
             </div>
 
-            {/* Spinning Fans */}
-            <div className="flex items-center gap-3 px-3 py-1.5 bg-gray-300/80 rounded border border-gray-400/60 shadow-inner shrink-0">
-              <FanSVG size={20} />
-              <FanSVG size={20} />
-              <FanSVG size={20} />
-            </div>
+            {/* CPU / NET / I/O spectrum display */}
+            <SpectrumDisplay />
 
             {/* Right Vent Grilles */}
             <div className="flex-1 flex gap-[3px] opacity-20 h-1.5 justify-end">
@@ -387,19 +401,11 @@ export default function ServerRack() {
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #bbb; }
 
-        @keyframes fan-spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
+        @keyframes eq-bar {
+          0%, 100% { height: 15%; opacity: 0.5; }
+          50%      { height: 100%; opacity: 1; }
         }
-        .animate-fan-spin { animation: fan-spin 1.2s linear infinite; }
-
-        @keyframes rack-scan {
-          0%   { top: -2px; opacity: 0; }
-          5%   { opacity: 1; }
-          95%  { opacity: 0.4; }
-          100% { top: 100%; opacity: 0; }
-        }
-        .animate-rack-scan { animation: rack-scan 7s ease-in-out infinite; }
+        .animate-eq-bar { animation: eq-bar ease-in-out infinite; }
 
         @keyframes hdd-blink {
           0%, 100% { opacity: 0.15; }
