@@ -27,7 +27,7 @@ export default function Footer() {
                 {/* RIGHT: Production Stamp */}
                 <div className="flex flex-col items-center md:items-end gap-1">
                     <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">
-                        PRODUCTION_ERA::2026_CYCLE
+                        PRODUCTION_ERA::{new Date().getFullYear()}_CYCLE
                     </span>
                     <div className="flex gap-1">
                         {[...Array(3)].map((_, i) => (

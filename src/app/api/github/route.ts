@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 export const revalidate = 3600; // Cache for 1 hour
 
+type ContributionDay = { date: string; contributionCount: number; contributionLevel: string };
+type ContributionWeek = { contributionDays: ContributionDay[] };
+
 export async function GET() {
     const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
     const username = 'Anuja-jayasinghe';
@@ -47,17 +50,15 @@ export async function GET() {
         }
 
         const data = await response.json();
-        
+
         if (data.errors) {
-            console.error('GitHub GraphQL Errors:', data.errors);
             return NextResponse.json({ error: 'GRAPHQL_ERROR', details: data.errors }, { status: 500 });
         }
 
-        const weeks = data.data.user.contributionsCollection.contributionCalendar.weeks;
-        
-        // Flatten the weeks into a single array of days
-        const flattenedDays = weeks.flatMap((week: any) => 
-            week.contributionDays.map((day: any) => ({
+        const weeks: ContributionWeek[] = data.data.user.contributionsCollection.contributionCalendar.weeks;
+
+        const flattenedDays = weeks.flatMap((week) =>
+            week.contributionDays.map((day) => ({
                 date: day.date,
                 count: day.contributionCount,
                 level: day.contributionLevel
@@ -65,8 +66,8 @@ export async function GET() {
         );
 
         return NextResponse.json(flattenedDays);
-    } catch (error: any) {
-        console.error('GitHub Uplink Error:', error);
-        return NextResponse.json({ error: 'UPLINK_INTERNAL_ERROR', message: error.message }, { status: 500 });
+    } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        return NextResponse.json({ error: 'UPLINK_INTERNAL_ERROR', message }, { status: 500 });
     }
 }
