@@ -16,16 +16,20 @@ const row2 = [
 function MarqueeRow({ icons, reverse = false }: { icons: string[], reverse?: boolean }) {
     const content = (
         <div className={`flex gap-16 items-center justify-around min-w-full shrink-0 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
-            {icons.map((icon, idx) => (
+            {icons.map((icon, idx) => {
+                const techName = icon.split('/')[0];
+                const label = techName.charAt(0).toUpperCase() + techName.slice(1);
+                return (
                 <Image
                     key={idx}
                     src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}.svg`}
-                    alt="Tech Logo"
+                    alt={`${label} logo`}
                     width={80}
                     height={80}
                     className="w-16 h-16 md:w-20 md:h-20 object-contain filter grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 />
-            ))}
+                );
+            })}
         </div>
     );
 

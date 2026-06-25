@@ -203,7 +203,7 @@ export default function Contact() {
                             name="name"
                             required
                             disabled={status === "sending"}
-                            suppressHydrationWarning
+                            suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
                             className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-400 shadow-inner"
                             placeholder="ENTER_SENDER_IDENTITY..."
                           />
@@ -221,7 +221,7 @@ export default function Contact() {
                             name="email"
                             required
                             disabled={status === "sending"}
-                            suppressHydrationWarning
+                            suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
                             className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-400 shadow-inner"
                             placeholder="ENTER_CONTACT_UPLINK..."
                           />
@@ -241,7 +241,7 @@ export default function Contact() {
                           rows={5}
                           required
                           disabled={status === "sending"}
-                          suppressHydrationWarning
+                          suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
                           className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all resize-none placeholder:text-gray-400 shadow-inner"
                           placeholder="ENCODE_YOUR_MESSAGE_HERE..."
                         />
