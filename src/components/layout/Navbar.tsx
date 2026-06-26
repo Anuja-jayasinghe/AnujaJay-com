@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 
@@ -104,20 +103,25 @@ export default function Navbar() {
                                 history.replaceState(null, '', '/');
                             }
                         }}
-                        className="block py-2 pointer-events-auto transition-all duration-500 hover:opacity-70"
+                        className="block py-2 pointer-events-auto"
                     >
-                        <Image
+                        <motion.img
                             src="/logo-black.svg"
                             alt="Anuja Logo"
-                            width={180}
-                            height={60}
-                            className={`h-auto object-contain transition-all duration-500 ${
-                                scrolled
-                                    ? "w-16 sm:w-20 opacity-40 hover:opacity-70"
-                                    : "w-32 sm:w-40 md:w-56 opacity-100"
-                            }`}
-                            style={{ filter: "drop-shadow(0 1px 3px rgba(255,255,255,0.8))" }}
-                            priority
+                            animate={{
+                                width: scrolled ? 120 : 200,
+                                opacity: scrolled ? 0.55 : 1,
+                            }}
+                            whileHover={{ opacity: scrolled ? 0.85 : 0.75 }}
+                            transition={{
+                                width:   { type: "spring", stiffness: 40, damping: 18 },
+                                opacity: { type: "spring", stiffness: 40, damping: 18 },
+                            }}
+                            style={{
+                                height: "auto",
+                                objectFit: "contain",
+                                filter: "drop-shadow(0 1px 4px rgba(255,255,255,0.9))",
+                            }}
                         />
                     </Link>
 
