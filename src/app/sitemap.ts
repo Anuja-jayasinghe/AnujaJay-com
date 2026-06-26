@@ -5,19 +5,21 @@ const siteUrl =
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://anujajay.com");
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = new URL(siteUrl);
-  const now = new Date();
+  const base = siteUrl.replace(/\/$/, "");
+  // Use a fixed date rather than new Date() so lastModified only changes
+  // when content actually changes — prevents unnecessary recrawls.
+  const siteLastModified = new Date("2026-06-26");
 
   return [
     {
-      url: new URL("/", baseUrl).toString(),
-      lastModified: now,
+      url: `${base}/`,
+      lastModified: siteLastModified,
       changeFrequency: "weekly",
-      priority: 1,
+      priority: 1.0,
     },
     {
-      url: new URL("/dir/Anuja_CV.pdf", baseUrl).toString(),
-      lastModified: now,
+      url: `${base}/dir/Anuja_CV.pdf`,
+      lastModified: siteLastModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
