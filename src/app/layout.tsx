@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Turret_Road, Numans } from "next/font/google";
-import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import GoToTopButton from "@/components/ui/GoToTopButton";
@@ -68,7 +67,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-light.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
     apple: [{ url: "/apple-icon" }],
@@ -97,24 +96,6 @@ export default function RootLayout({
       <body
         className={`${numans.variable} ${turretRoad.variable} font-sans antialiased bg-white text-black min-h-screen flex flex-col`}
       >
-        <Script id="theme-favicon" strategy="beforeInteractive">
-          {`
-            (function () {
-              function setFavicon() {
-                var isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                var href = isDark ? "/favicon-dark.svg" : "/favicon-light.svg";
-                var link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
-                if (link && link.getAttribute("href") !== href) {
-                  link.setAttribute("href", href);
-                }
-              }
-              setFavicon();
-              window
-                .matchMedia("(prefers-color-scheme: dark)")
-                .addEventListener("change", setFavicon);
-            })();
-          `}
-        </Script>
         {children}
         <Analytics />
         <SpeedInsights />
