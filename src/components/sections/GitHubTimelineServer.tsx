@@ -68,7 +68,6 @@ async function GitHubTimelineContent({
   return (
     <GitHubTimeline
       contributions={contributions}
-      totalCommits={stats?.totalCommits}
       totalStars={stats?.totalStars}
     />
   );

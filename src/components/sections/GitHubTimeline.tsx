@@ -11,7 +11,6 @@ interface ContributionDay {
 
 interface GitHubTimelineProps {
   contributions: ContributionDay[];
-  totalCommits?: number;
   totalStars?: number;
 }
 
@@ -171,7 +170,6 @@ function ContributionSquare({ day }: { day?: ContributionDay }) {
  */
 export function GitHubTimeline({
   contributions,
-  totalCommits: passedTotalCommits,
   totalStars: passedTotalStars,
 }: GitHubTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -186,7 +184,7 @@ export function GitHubTimeline({
   const weeks = organizeIntoWeeks(nonFutureContributions);
 
   // Calculate stats
-  const totalCommits = passedTotalCommits ?? contributions.reduce(
+  const totalContributions = contributions.reduce(
     (sum, day) => sum + day.contributionCount,
     0
   );
@@ -291,7 +289,7 @@ export function GitHubTimeline({
             Total Contributions
           </p>
           <p className="text-2xl font-bold text-accent">
-            {totalCommits.toLocaleString()}
+            {totalContributions.toLocaleString()}
           </p>
         </div>
         <div className="space-y-1">

@@ -155,19 +155,14 @@ export async function fetchGitHubContributions(
 }
 
 /**
- * Fetches user stats including total contributions and starred repositories
- * Total contributions calculated from commit contributions
+ * Fetches total stars across the user's non-fork repositories
  */
 export async function fetchGitHubStats(username: string): Promise<{
-  totalCommits: number;
   totalStars: number;
 }> {
   const query = `
     query {
       user(login: "${username}") {
-        contributionsCollection {
-          totalCommitContributions
-        }
         repositories(first: 100, isFork: false) {
           nodes {
             stargazerCount
@@ -197,7 +192,6 @@ export async function fetchGitHubStats(username: string): Promise<{
   const data = (await response.json()) as {
     data?: {
       user: {
-        contributionsCollection: { totalCommitContributions: number };
         repositories: { nodes: Array<{ stargazerCount: number }> };
       };
     };
@@ -213,13 +207,12 @@ export async function fetchGitHubStats(username: string): Promise<{
     throw new Error("User not found");
   }
 
-  const totalCommits = user.contributionsCollection.totalCommitContributions;
   const totalStars = user.repositories.nodes.reduce(
     (sum, repo) => sum + repo.stargazerCount,
     0
   );
 
-  return { totalCommits, totalStars };
+  return { totalStars };
 }
 
 /**
