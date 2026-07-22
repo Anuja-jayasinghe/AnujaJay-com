@@ -23,8 +23,16 @@ export default function TerminalOne() {
   const [typedOutput, setTypedOutput] = useState<string>("");
   const [isTyping, setIsTyping] = useState(false);
   const [expandedDirs, setExpandedDirs] = useState<Record<string, boolean>>({ "tools": true, "web": true });
-  
+  const [isMobile, setIsMobile] = useState(false);
+
   const debounceTimer = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   const miniProjects = projectsData.filter((p) => p.type === "mini");
   
@@ -142,7 +150,7 @@ export default function TerminalOne() {
                 </button>
                 
                 <AnimatePresence initial={false}>
-                  {(expandedDirs[dir] || typeof window !== 'undefined' && window.innerWidth < 768) && (
+                  {(expandedDirs[dir] || isMobile) && (
                     <motion.div 
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
