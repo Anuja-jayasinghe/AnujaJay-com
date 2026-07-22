@@ -66,7 +66,10 @@ export const metadata: Metadata = {
     images: ["/twitter-image"],
   },
   icons: {
-    icon: [{ url: "/favicon.ico" }],
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
     apple: [{ url: "/apple-icon" }],
     other: [
       {
