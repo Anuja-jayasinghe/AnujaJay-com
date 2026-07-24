@@ -1,18 +1,18 @@
 # Anuja Jayasinghe's Portfolio
 
-A modern, responsive portfolio website showcasing projects, skills, and professional experience. Built with Next.js 16, TypeScript, and Tailwind CSS.
+My personal portfolio site — [anujajay.com](https://anujajay.com). Built with Next.js 16, TypeScript, and Tailwind CSS.
 
-## ✨ Features
+This is a personal asset, not a template for others to clone and run — this README documents how the site is built and what's notable about it, for future reference.
 
-- **Splash Screen Animation** - Eye-catching entry animation on initial load
-- **Responsive Navigation** - Mobile-friendly navbar with smooth scrolling
-- **Hero Section** - Engaging introduction with animated elements
-- **About Section** - Personal bio and professional background
-- **Portfolio Showcase** - Featured and mini projects with live demos and GitHub links
-- **Skills Display** - Technical skills organized by category
-- **Contact Form** - Easy way to get in touch
-- **Dark Theme Ready** - Modern, professional dark-themed design
-- **Smooth Animations** - Powered by Framer Motion for fluid interactions
+## ✨ Highlights
+
+- **Data-driven, not hardcoded** - Projects (`src/data/projects.json`) and certificates (`src/data/certificates.json`) are stored as structured data and rendered by components, so adding a project or cert doesn't touch layout code.
+- **Live GitHub contribution graph** - `src/app/api/github/route.ts` queries the GitHub GraphQL API for real contribution data, cached for an hour, and rendered as an interactive timeline (`GitHubTimeline.tsx`).
+- **`/cv` and `/resume` shortcuts** - Both permanently redirect straight to the CV PDF, via Next.js's built-in `redirects()` config (`next.config.ts`), so anyone can jump to my resume without hunting for a link.
+- **Splash screen + smooth animations** - Framer Motion powers the entry animation and interactions throughout.
+- **Fully responsive** - Mobile-friendly navbar, layout, and sections.
+- **Dark-themed design** - Modern, professional dark UI end to end.
+- **Vercel Analytics & Speed Insights** built in for real usage/performance data.
 
 ## 🛠️ Tech Stack
 
@@ -21,75 +21,35 @@ A modern, responsive portfolio website showcasing projects, skills, and professi
 - **Styling:** Tailwind CSS v4
 - **Animations:** Framer Motion
 - **Icons:** Lucide React
-- **Linting:** ESLint (Next.js config)
+- **Data:** GitHub GraphQL API (contributions), local JSON (projects, certificates)
+- **Hosting/Analytics:** Vercel, Vercel Analytics, Speed Insights
 
 ## 📁 Project Structure
 
 ```
 My-Portfolio/
 ├── public/
-│   └── projects/          # Project images and assets
+│   ├── Anuja_CV.pdf        # Resume, served at /cv and /resume
+│   └── projects/           # Project images and assets
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx     # Root layout
-│   │   ├── page.tsx       # Main page
-│   │   └── globals.css    # Global styles
-│   └── components/
-│       ├── layout/
-│       │   ├── Footer.tsx
-│       │   ├── Navbar.tsx
-│       │   └── SplashScreen.tsx
-│       └── sections/
-│           ├── About.tsx
-│           ├── Contact.tsx
-│           ├── Hero.tsx
-│           ├── Portfolio.tsx
-│           └── Skills.tsx
-├── portfolio_data.md      # Content and project data
-└── questionnaire.md       # Design requirements
+│   │   ├── api/github/     # GitHub contributions API route
+│   │   ├── dir/             # Resume viewer route
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Main page
+│   │   └── globals.css      # Global styles
+│   ├── components/
+│   │   ├── layout/          # Navbar, Footer, SplashScreen
+│   │   ├── sections/        # Hero, About, Portfolio, Skills, Contact, GitHubTimeline
+│   │   └── ui/               # Shared UI primitives
+│   ├── data/
+│   │   ├── projects.json     # Project content
+│   │   └── certificates.json # Certificate content
+│   └── lib/
+│       └── github-contributions.ts
+├── portfolio_data.md        # Source content notes
+└── questionnaire.md         # Design requirements
 ```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 20+ 
-- npm, yarn, pnpm, or bun
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/Anuja-jayasinghe/My-Portfolio.git
-cd My-Portfolio
-```
-
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-3. Run the development server:
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 📝 Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
 
 ## 📦 Featured Projects
 
@@ -98,30 +58,18 @@ pnpm dev
 - **ComponentOps** - Motion-enhanced React UI components library
 - **CheckMS** - Professional check portfolio manager for LKR transactions
 
-View all projects and details in [portfolio_data.md](portfolio_data.md).
+Full project data lives in [`src/data/projects.json`](src/data/projects.json).
 
-## 🎨 Customization
+## 🔗 Notable Routes
 
-To update portfolio content:
-1. Edit `portfolio_data.md` for content structure
-2. Modify components in `src/components/sections/` for layout changes
-3. Update styles in `src/app/globals.css` or component-level Tailwind classes
-
-## 📄 Documentation
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS v4](https://tailwindcss.com/docs)
-- [Framer Motion](https://www.framer.com/motion/)
+- `/cv` and `/resume` → permanent redirect to the CV PDF
+- `/api/github` → live GitHub contribution data (GraphQL, 1-hour cache)
 
 ## 📧 Contact
 
 - **Email:** anujajayasinhe@gmail.com
 - **GitHub:** [@Anuja-jayasinghe](https://github.com/Anuja-jayasinghe)
 - **LinkedIn:** [anuja-jayasinghe](https://linkedin.com/in/anuja-jayasinghe)
-
-## 📜 License
-
-This project is open source and available for personal use.
 
 ---
 
