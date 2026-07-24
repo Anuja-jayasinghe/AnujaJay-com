@@ -8,7 +8,7 @@ This is a personal asset, not a template for others to clone and run — this RE
 
 - **Data-driven, not hardcoded** - Projects (`src/data/projects.json`) and certificates (`src/data/certificates.json`) are stored as structured data and rendered by components, so adding a project or cert doesn't touch layout code.
 - **Live GitHub contribution graph** - `src/app/api/github/route.ts` queries the GitHub GraphQL API for real contribution data, cached for an hour, and rendered as an interactive timeline (`GitHubTimeline.tsx`).
-- **`/cv` and `/resume` shortcuts** - Both redirect (permanently) straight to the CV PDF, so anyone can jump to my resume without hunting for a link — see `next.config.ts`.
+- **`/cv` and `/resume` shortcuts** - Both permanently redirect straight to the CV PDF, via Next.js's built-in `redirects()` config (`next.config.ts`), so anyone can jump to my resume without hunting for a link.
 - **Splash screen + smooth animations** - Framer Motion powers the entry animation and interactions throughout.
 - **Fully responsive** - Mobile-friendly navbar, layout, and sections.
 - **Dark-themed design** - Modern, professional dark UI end to end.
@@ -73,4 +73,4 @@ Full project data lives in [`src/data/projects.json`](src/data/projects.json).
 
 ---
 
-Built by Anuja Jayasinghe
+Built with ❤️ by Anuja Jayasinghe
