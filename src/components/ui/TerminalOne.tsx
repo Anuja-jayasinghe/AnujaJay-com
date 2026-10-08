@@ -21,7 +21,7 @@ export default function TerminalOne() {
   const currentPayloadRef = useRef<string>("");
 
   useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkIsMobile = () => setIsMobile(window.innerWidth < 1024);
     checkIsMobile();
     window.addEventListener("resize", checkIsMobile);
     return () => window.removeEventListener("resize", checkIsMobile);
@@ -120,7 +120,7 @@ export default function TerminalOne() {
     : null;
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto rounded-lg overflow-hidden border border-black/10 flex flex-col font-mono text-sm shadow-2xl bg-gray-100">
+    <div className="w-full max-w-[1400px] mx-auto rounded-lg overflow-hidden border border-black/10 flex flex-col font-mono text-sm shadow-2xl bg-gray-100">
 
       {/* Window Chrome - Light Industrial */}
       <div className="flex items-center justify-between px-4 py-2 bg-gray-200 border-b border-black/10 shrink-0">
@@ -136,22 +136,22 @@ export default function TerminalOne() {
         <div className="text-[10px] text-green-500/30 font-bold">MODE: CRT_EMULATION_ON</div>
       </div>
 
-      <div className="flex flex-col md:flex-row relative">
+      <div className="flex flex-col lg:flex-row relative">
 
         {/* Sidebar: File Explorer */}
-        <div className="w-full md:w-64 bg-gray-200 border-b md:border-b-0 md:border-r border-black/10 flex flex-col shrink-0 z-10">
+        <div className="w-full lg:w-64 bg-gray-200 border-b lg:border-b-0 lg:border-r border-black/10 flex flex-col shrink-0 z-10">
           <div className="p-3 text-[10px] font-bold text-gray-400 tracking-widest flex items-center gap-2 uppercase border-b border-black/10">
             <FolderCode className="w-3.5 h-3.5" />
             SRC/LAB/PROJECTS
           </div>
 
           {/* Directory Rendering */}
-          <div className="flex md:flex-col overflow-x-auto md:overflow-x-visible py-2 custom-scrollbar no-scrollbar-md">
+          <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible py-2 custom-scrollbar no-scrollbar-md">
             {Object.entries(groupedProjects).map(([dir, items]) => (
-              <div key={dir} className="flex flex-row md:flex-col shrink-0 md:shrink-1 items-center md:items-stretch border-r md:border-r-0 border-black/5 last:border-r-0">
+              <div key={dir} className="flex flex-row lg:flex-col shrink-0 lg:shrink-1 items-center lg:items-stretch border-r lg:border-r-0 border-black/5 last:border-r-0">
                 <button
                   onClick={() => toggleDir(dir)}
-                  className="flex items-center gap-1.5 px-3 py-1 text-gray-500 hover:text-gray-700 text-[10px] md:text-xs transition-colors shrink-0 whitespace-nowrap"
+                  className="flex items-center gap-1.5 px-3 py-1 text-gray-500 hover:text-gray-700 text-[10px] lg:text-xs transition-colors shrink-0 whitespace-nowrap"
                 >
                   {expandedDirs[dir] ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                   <span className="uppercase tracking-tighter font-black">📁 {dir}/</span>
@@ -163,7 +163,7 @@ export default function TerminalOne() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      className="flex md:flex-col overflow-visible shrink-0"
+                      className="flex lg:flex-col overflow-visible shrink-0"
                     >
                       {items.map((project) => (
                         <button
@@ -171,7 +171,7 @@ export default function TerminalOne() {
                           onMouseEnter={() => handleMouseEnter(project)}
                           onMouseLeave={handleMouseLeave}
                           onClick={() => handleClick(project)}
-                          className={`flex items-center gap-2 px-4 md:px-6 py-2 md:py-1.5 shrink-0 text-left transition-all duration-200 group relative min-w-fit ${activeProject?.id === project.id
+                          className={`flex items-center gap-2 px-4 lg:px-6 py-2 lg:py-1.5 shrink-0 text-left transition-all duration-200 group relative min-w-fit ${activeProject?.id === project.id
                               ? "text-blue-600 bg-blue-500/5 shadow-inner"
                               : "text-gray-600 hover:text-gray-900 hover:bg-black/5"
                             }`}
@@ -322,7 +322,7 @@ export default function TerminalOne() {
         .no-scrollbar-md::-webkit-scrollbar {
           display: block;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
           .no-scrollbar-md::-webkit-scrollbar {
             display: none;
           }

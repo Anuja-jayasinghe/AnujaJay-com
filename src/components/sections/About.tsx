@@ -29,15 +29,15 @@ export default function About() {
 
     return (
         <section id="about" className="py-16 sm:py-24 bg-gray-50 border-y border-black/5">
-            <div className="container mx-auto px-4 sm:px-6">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-10 sm:mb-16 flex items-center gap-3 sm:gap-4 text-black">
+            <div className="site-shell">
+                <h2 className="section-title font-bold font-mono mb-10 sm:mb-16 flex items-center gap-3 sm:gap-4 text-black">
                     <span className="text-accent">01.</span> The Real Me
                 </h2>
             </div>
 
             {/* Full-width tab bar with underline */}
             <div className="w-full border-b border-black/10 overflow-x-auto">
-                <div className="container mx-auto px-4 sm:px-6">
+                <div className="site-shell">
                     <div className="flex gap-6 sm:gap-8 md:gap-12 relative min-w-max sm:min-w-0">
                         {perspectives.map((p, i) => {
                             const Icon = p.icon;
@@ -66,7 +66,7 @@ export default function About() {
             </div>
 
             {/* Content */}
-            <div className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-12">
+            <div className="site-shell pt-8 sm:pt-12">
                 <div className="w-full min-h-[80px] sm:min-h-[100px]">
                     <AnimatePresence mode="wait">
                         <motion.p
@@ -75,7 +75,7 @@ export default function About() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.35, ease: "easeInOut" }}
-                            className="text-gray-600 leading-relaxed text-base sm:text-lg md:text-2xl w-full"
+                            className="text-gray-600 leading-relaxed text-base sm:text-lg md:text-2xl max-w-[1100px]"
                         >
                             {perspectives[active].text}
                         </motion.p>

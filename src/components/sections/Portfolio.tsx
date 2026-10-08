@@ -4,7 +4,7 @@ import PortfolioFeaturedCard from "./PortfolioFeaturedCard";
 
 const TerminalOne = dynamic(() => import("../ui/TerminalOne"), {
     loading: () => (
-        <div className="w-full max-w-[1200px] mx-auto h-[500px] rounded-lg bg-gray-100 border border-black/10 animate-pulse" />
+        <div className="w-full max-w-[1400px] mx-auto h-[500px] rounded-lg bg-gray-100 border border-black/10 animate-pulse" />
     ),
 });
 
@@ -16,8 +16,8 @@ export default function Portfolio() {
 
     return (
         <section id="portfolio" className="py-16 sm:py-24 overflow-hidden">
-            <div className="container mx-auto px-4 sm:px-6">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-12 sm:mb-20 flex items-center gap-3 sm:gap-4 text-black">
+            <div className="site-shell">
+                <h2 className="section-title font-bold font-mono mb-12 sm:mb-20 flex items-center gap-3 sm:gap-4 text-black">
                     <span className="text-accent">02.</span> Selected Work
                 </h2>
 
@@ -41,7 +41,7 @@ export default function Portfolio() {
             </div>
 
             {/* Terminal One Container - full width on mobile, constrained on desktop */}
-            <div id="mini-projects" className="w-full px-4 sm:px-8 md:px-16 lg:px-24 pb-8">
+            <div id="mini-projects" className="site-shell pb-8">
                 <TerminalOne />
             </div>
         </section>

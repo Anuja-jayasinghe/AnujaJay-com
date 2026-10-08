@@ -37,6 +37,24 @@ body {
   min-width: 320px;
 }
 
+/* One content grid for every section, with breathing room at each viewport. */
+.site-shell {
+  width: min(calc(100% - 2 * clamp(1rem, 4vw, 4rem)), 1680px);
+  margin-inline: auto;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 6.3vw, 7.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 2.5vw, 2.75rem);
+  line-height: 1.2;
+}
+
 /* Custom utilities */
 @utility text-accent {
   color: var(--accent);
