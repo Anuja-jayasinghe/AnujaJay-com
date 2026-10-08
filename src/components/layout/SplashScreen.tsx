@@ -1,82 +1,80 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import AnimatedLogo from "./AnimatedLogo";
 
-type Phase = "intro" | "done";
+type IntroMode = "full" | "mobile" | "short" | "reduced";
+
+const SESSION_KEY = "anuja-signature-intro-v2-seen";
+const HOLD_MS = { full: 3100, mobile: 1300, short: 320, reduced: 300 };
 
 export default function SplashScreen() {
-    const [phase, setPhase] = useState<Phase>("intro");
+  const [mode, setMode] = useState<IntroMode>("full");
+  const [visible, setVisible] = useState(true);
+  const initialSeen = useRef<boolean | null>(null);
 
-    useEffect(() => {
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobile = window.matchMedia("(max-width: 639px)").matches;
+    const replay = new URLSearchParams(window.location.search).get("intro") === "replay";
+    if (initialSeen.current === null) {
+      try {
+        initialSeen.current = sessionStorage.getItem(SESSION_KEY) === "1";
+        sessionStorage.setItem(SESSION_KEY, "1");
+      } catch {
+        // The intro still works when storage is unavailable.
+        initialSeen.current = false;
+      }
+    }
 
-        // Logo animation takes about ~3 seconds total (1.5 pathLength, 0.8 fill delay starts at 1.2)
-        // Keep splash screen for 3.5s total before unmounting, or skip straight through for
-        // reduced-motion users instead of forcing the full animation.
-        const doneTimer = setTimeout(
-            () => setPhase("done"),
-            prefersReducedMotion ? 0 : 3500
-        );
-        return () => {
-            clearTimeout(doneTimer);
-        };
-    }, []);
+    let nextMode: IntroMode = mobile ? "mobile" : "full";
+    if (initialSeen.current && !replay) nextMode = "short";
+    if (reduced) nextMode = "reduced";
+    let active = true;
+    queueMicrotask(() => {
+      if (active) setMode(nextMode);
+    });
 
-    return (
-        <AnimatePresence>
-            {phase === "intro" && (
-                <motion.div
-                    initial={{ y: 0 }}
-                    exit={{ y: "-100%" }}
-                    transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }} // Elegant ease out curtain effect
-                    className="fixed inset-0 z-[150] cursor-pointer flex flex-col justify-center items-center"
-                    style={{ backgroundColor: '#00001A' }}
-                    onClick={() => setPhase("done")}
-                >
-                    <motion.div
-                        initial={{
-                            position: "fixed",
-                            top: "50%",
-                            left: "50%",
-                            x: "-50%",
-                            y: "-50%",
-                            scale: 0.9,
-                            opacity: 1,
-                        }}
-                        animate={{
-                            scale: 1,
-                        }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="z-[151] w-[300px] md:w-[450px]"
-                    >
-                        <AnimatedLogo className="w-full h-auto drop-shadow-2xl" />
-                    </motion.div>
+    const timer = window.setTimeout(() => setVisible(false), HOLD_MS[nextMode]);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setVisible(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
 
-                    {/* Loading indicator line optional, elegant */}
-                    <motion.div
-                        className="absolute bottom-20 w-48 h-[2px] bg-white/20 rounded-full overflow-hidden"
-                    >
-                        <motion.div
-                            className="h-full bg-white/80"
-                            initial={{ width: "0%" }}
-                            animate={{ width: "100%" }}
-                            transition={{ duration: 3.2, ease: "easeInOut" }}
-                        />
-                    </motion.div>
+    return () => {
+      active = false;
+      window.clearTimeout(timer);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
 
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 1 }}
-                        className="absolute bottom-12 font-mono text-[9px] text-white/40 uppercase tracking-widest select-none"
-                    >
-                        Tap to skip
-                    </motion.span>
-                </motion.div>
-            )}
-        </AnimatePresence>
-    );
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className={`splash-screen splash-${mode} fixed inset-0 z-[150] flex items-center justify-center bg-[#00001A]`}
+          exit={mode === "full" ? { y: "-100%" } : { opacity: 0 }}
+          transition={{
+            duration: mode === "full" ? 0.75 : 0.2,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+        >
+          <AnimatedLogo className="animated-signature block h-auto w-[84vw] max-w-[860px] sm:w-[clamp(400px,48vw,860px)]" />
+
+          <div className={`${mode === "full" ? "" : "hidden"} absolute bottom-20 h-0.5 w-48 overflow-hidden rounded-full bg-white/20`} aria-hidden="true">
+            <div className="splash-progress-bar h-full w-full origin-left bg-white/80" />
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setVisible(false)}
+            className="absolute bottom-8 left-1/2 flex min-h-11 -translate-x-1/2 items-center px-4 font-mono text-[10px] uppercase tracking-widest text-white/55 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          >
+            Tap to skip
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
