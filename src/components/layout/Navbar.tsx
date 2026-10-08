@@ -91,7 +91,7 @@ export default function Navbar() {
     return (
         <>
             <header className="fixed top-0 z-50 w-full font-mono pointer-events-none">
-                <div className="w-full px-4 sm:px-8 md:px-12 h-16 sm:h-20 md:h-24 flex items-center justify-between">
+                <div className="site-shell h-16 sm:h-20 md:h-24 flex items-center justify-between">
 
                     {/* LEFT: Logo — always floating */}
                     <Link
@@ -119,6 +119,7 @@ export default function Navbar() {
                             }}
                             style={{
                                 height: "auto",
+                                maxWidth: "42vw",
                                 objectFit: "contain",
                                 filter: "drop-shadow(0 1px 4px rgba(255,255,255,0.9))",
                             }}

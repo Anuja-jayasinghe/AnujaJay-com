@@ -25,11 +25,11 @@ export default function PortfolioFeaturedCard({
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`flex flex-col ${
-        isEven ? "md:flex-row" : "md:flex-row-reverse"
-      } gap-6 sm:gap-8 md:gap-12 items-center group`}
+        isEven ? "xl:flex-row" : "xl:flex-row-reverse"
+      } gap-6 sm:gap-8 xl:gap-12 items-center group`}
     >
       {/* Media gallery */}
-      <div className="w-full md:w-3/5 relative overflow-hidden rounded-lg border border-black/10">
+      <div className="w-full xl:w-[58%] xl:shrink-0 relative overflow-hidden rounded-lg border border-black/10">
         <div className="relative aspect-video overflow-hidden">
           {activeMedia ? (
             activeMedia.type === "video" ? (
@@ -55,7 +55,7 @@ export default function PortfolioFeaturedCard({
                   src={activeMedia.src}
                   alt={activeMedia.alt}
                   fill
-                  sizes="(min-width: 768px) 60vw, 100vw"
+                  sizes="(min-width: 1800px) 980px, (min-width: 1280px) 55vw, 92vw"
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   priority={index === 0}
                   loading={index === 0 ? undefined : "lazy"}
@@ -90,22 +90,22 @@ export default function PortfolioFeaturedCard({
 
       {/* Details */}
       <div
-        className={`w-full md:w-2/5 ${
-          isEven ? "md:text-left" : "md:text-right"
+        className={`w-full xl:min-w-0 xl:flex-1 ${
+          isEven ? "xl:text-left" : "xl:text-right"
         }`}
       >
         <p className="text-sm font-mono text-accent mb-2 font-bold">
           Featured Project
         </p>
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono text-black mb-4 group-hover:text-accent transition-colors">
+        <h3 className="text-2xl sm:text-3xl xl:text-4xl font-bold font-mono text-black mb-4 group-hover:text-accent transition-colors break-words">
           {project.title}
         </h3>
-        <p className="text-gray-500 text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed">
+        <p className="text-gray-500 text-base xl:text-lg mb-4 sm:mb-6 leading-relaxed">
           {project.description}
         </p>
         <div
           className={`flex flex-wrap gap-2 mb-8 ${
-            isEven ? "" : "md:justify-end"
+            isEven ? "" : "xl:justify-end"
           }`}
         >
           {project.techStack.map((tech) => (
@@ -117,7 +117,7 @@ export default function PortfolioFeaturedCard({
             </span>
           ))}
         </div>
-        <div className={`flex gap-5 ${isEven ? "" : "md:justify-end"}`}>
+        <div className={`flex flex-wrap gap-5 ${isEven ? "" : "xl:justify-end"}`}>
           <a
             href={project.repoUrl}
             target="_blank"

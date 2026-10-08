@@ -1,13 +1,13 @@
 export default function Hero() {
     return (
-        <section id="home" className="min-h-[90vh] flex items-center pt-20">
-            <div className="container mx-auto px-4 sm:px-6">
-                <div className="max-w-5xl">
-                    <h2 className="text-lg sm:text-2xl md:text-3xl font-mono text-accent mb-4 sm:mb-6">Hello, it&apos;s me</h2>
-                    <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold font-sans tracking-tight mb-6 sm:mb-8 text-black leading-tight">
+        <section id="home" className="min-h-[75svh] sm:min-h-[85svh] lg:min-h-[90svh] flex items-center py-24 sm:py-32">
+            <div className="site-shell">
+                <div className="max-w-[1200px]">
+                    <h2 className="text-[clamp(1rem,1.5vw,1.5rem)] font-mono text-accent mb-4 sm:mb-6">Hello, it&apos;s me</h2>
+                    <h1 className="hero-title font-bold font-sans mb-6 sm:mb-8 text-black">
                         Anuja Jayasinghe.
                     </h1>
-                    <p className="text-lg sm:text-2xl md:text-3xl text-gray-600 mb-8 sm:mb-12 max-w-3xl leading-relaxed">
+                    <p className="text-[clamp(1.125rem,1.9vw,1.75rem)] text-gray-600 mb-8 sm:mb-12 max-w-3xl leading-relaxed">
                         I build clean, purposeful solutions that solve real-world problems. Continuous learner.
                     </p>
                     <div className="flex flex-wrap gap-3 sm:gap-4">

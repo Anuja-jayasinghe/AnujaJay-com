@@ -51,10 +51,10 @@ function MarqueeRow({ icons, reverse = false }: { icons: string[], reverse?: boo
 export default function Skills() {
     return (
         <section id="resume" className="py-16 sm:py-24 border-y border-black/5 bg-white overflow-hidden">
-            <div className="container mx-auto px-4 sm:px-6 mb-12 sm:mb-20 relative z-10">
+            <div className="site-shell mb-12 sm:mb-20 relative z-10">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div>
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-mono mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4 text-black">
+                        <h2 className="section-title font-bold font-mono mb-3 sm:mb-4 flex items-center gap-3 sm:gap-4 text-black">
                             <span className="text-accent">03.</span> Core Arsenal
                         </h2>
                         <p className="text-gray-600 max-w-2xl font-sans text-base sm:text-lg">
@@ -74,8 +74,8 @@ export default function Skills() {
             </div>
 
             {/* GitHub Contribution Timeline */}
-            <div className="mt-16 sm:mt-24 w-full px-4 sm:px-6">
-                <div className="container mx-auto">
+            <div className="mt-16 sm:mt-24 site-shell">
+                <div className="w-full">
                     <GitHubTimelineServer username="Anuja-jayasinghe" years={[2024, 2025, 2026]} />
                 </div>
             </div>

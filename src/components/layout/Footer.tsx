@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
-        <footer className="w-full bg-white border-t border-black/5 py-4 px-8 font-mono">
-            <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 opacity-70 hover:opacity-100 transition-opacity">
+        <footer className="w-full bg-white border-t border-black/5 py-4 font-mono">
+            <div className="site-shell flex flex-col xl:flex-row items-center justify-between gap-4 opacity-70 hover:opacity-100 transition-opacity">
                 
                 {/* LEFT: System Manifest */}
                 <div className="flex flex-col gap-0.5">
@@ -15,7 +15,7 @@ export default function Footer() {
                 </div>
 
                 {/* CENTER: Identity Hash */}
-                <div className="text-center md:text-left">
+                <div className="text-center xl:text-left">
                     <p className="text-[10px] font-black text-black tracking-tighter uppercase underline decoration-accent decoration-2 underline-offset-2">
                         DESIGNED_&_ENGINEERED_BY_ANUJA_JAYASINGHE
                     </p>
@@ -25,7 +25,7 @@ export default function Footer() {
                 </div>
 
                 {/* RIGHT: Production Stamp */}
-                <div className="flex flex-col items-center md:items-end gap-1">
+                <div className="flex flex-col items-center xl:items-end gap-1">
                     <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">
                         PRODUCTION_ERA::{new Date().getFullYear()}_CYCLE
                     </span>

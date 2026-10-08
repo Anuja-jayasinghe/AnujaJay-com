@@ -75,8 +75,8 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-gray-50 overflow-hidden">
-      <div className="container mx-auto px-4 max-w-5xl">
+    <section id="contact" className="py-16 sm:py-24 bg-gray-50 overflow-hidden">
+      <div className="site-shell max-w-[1400px]">
 
         {/* Section Header with Industrial Detailing */}
         <div className="flex items-center gap-4 mb-12">
@@ -90,10 +90,10 @@ export default function Contact() {
           <div className="h-0.5 flex-1 bg-gray-200" />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+        <div className="flex flex-col xl:flex-row gap-8 xl:gap-12 items-start">
 
           {/* Left Side: Diagnostic Display & Socials */}
-          <div className="w-full lg:w-1/3 space-y-8">
+          <div className="w-full xl:w-1/3 space-y-8">
             <div>
               <h3 className="text-4xl font-black text-gray-900 leading-none mb-4 uppercase tracking-tighter">
                 Initiate<br /><span className="text-blue-600">Broadcast.</span>
@@ -149,7 +149,7 @@ export default function Contact() {
           </div>
 
           {/* Right Side: High-Fidelity Communication Chassis */}
-          <div className="w-full lg:w-2/3">
+          <div className="w-full xl:w-2/3 xl:min-w-0">
             <div className="bg-gray-100 rounded-lg border-[10px] border-gray-200 shadow-2xl shadow-black/5 overflow-hidden relative">
 
               {/* Chassis Top Bar */}
