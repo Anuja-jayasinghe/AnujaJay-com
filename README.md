@@ -9,7 +9,7 @@ This is a personal asset, not a template for others to clone and run — this RE
 - **Data-driven, not hardcoded** - Projects (`src/data/projects.json`) and certificates (`src/data/certificates.json`) are stored as structured data and rendered by components, so adding a project or cert doesn't touch layout code.
 - **Live GitHub contribution graph** - `src/lib/github-contributions.ts` queries the GitHub GraphQL API for real contribution data server-side, cached for an hour, and rendered as an interactive timeline (`GitHubTimelineServer.tsx` → `GitHubTimeline.tsx`).
 - **`/cv` and `/resume` shortcuts** - Both permanently redirect straight to the CV PDF, via Next.js's built-in `redirects()` config (`next.config.ts`), so anyone can jump to my resume without hunting for a link.
-- **Splash screen + smooth animations** - Framer Motion powers the entry animation and interactions throughout.
+- **Splash screen + smooth animations** - The vector signature draws with CSS, then Framer Motion reveals the portfolio.
 - **Fully responsive** - Mobile-friendly navbar, layout, and sections.
 - **Dark-themed design** - Modern, professional dark UI end to end.
 - **Vercel Analytics & Speed Insights** built in for real usage/performance data.
@@ -67,6 +67,11 @@ Full project data lives in [`src/data/projects.json`](src/data/projects.json).
 - **Email:** anujajayasinhe@gmail.com
 - **GitHub:** [@Anuja-jayasinghe](https://github.com/Anuja-jayasinghe)
 - **LinkedIn:** [anuja-jayasinghe](https://linkedin.com/in/anuja-jayasinghe)
+
+## Contributors
+
+- [Anuja Jayasinghe](https://github.com/Anuja-jayasinghe) — owner and developer.
+- [Codex](https://github.com/codex) — AI coding collaborator on the responsive layout ([#56](https://github.com/Anuja-jayasinghe/AnujaJay-com/pull/56)) and splash screen ([#50](https://github.com/Anuja-jayasinghe/AnujaJay-com/issues/50)).
 
 ---
 

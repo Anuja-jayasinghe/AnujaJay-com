@@ -37,6 +37,73 @@ body {
   min-width: 320px;
 }
 
+.splash-screen {
+  /* Let the page through if JavaScript never hydrates the intro. */
+  animation: splash-failsafe 6s step-end forwards;
+}
+
+.splash-full .signature-glyph {
+  fill-opacity: 0;
+  stroke: #d9d9d9;
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: signature-trace 1.5s ease-in-out both, signature-fill 0.8s ease-in-out 1.2s both;
+}
+
+.splash-full .signature-glyph:nth-child(2) { animation-delay: 0.1s, 1.3s; }
+.splash-full .signature-glyph:nth-child(3) { animation-delay: 0.2s, 1.4s; }
+.splash-full .signature-glyph:nth-child(4) { animation-delay: 0.3s, 1.5s; }
+.splash-full .signature-glyph:nth-child(5) { animation-delay: 0.4s, 1.6s; }
+.splash-full .signature-glyph:nth-child(6) { animation-delay: 0.5s, 1.7s; }
+
+.splash-full .splash-progress-bar {
+  animation: splash-progress 3s ease-in-out both;
+}
+
+.splash-mobile .animated-signature {
+  animation: signature-fade 0.6s ease-out both;
+}
+
+.splash-short .animated-signature {
+  animation: signature-fade 0.2s ease-out both;
+}
+
+@keyframes signature-trace {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes signature-fill {
+  from { fill-opacity: 0; stroke-width: 2; }
+  to { fill-opacity: 1; stroke-width: 0; }
+}
+
+@keyframes signature-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes splash-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes splash-failsafe {
+  to { visibility: hidden; pointer-events: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen .signature-glyph,
+  .splash-screen .animated-signature,
+  .splash-screen .splash-progress-bar {
+    animation: none !important;
+    fill-opacity: 1;
+    stroke: none;
+    opacity: 1;
+  }
+}
+
 /* One content grid for every section, with breathing room at each viewport. */
 .site-shell {
   width: min(calc(100% - 2 * clamp(1rem, 4vw, 4rem)), 1680px);

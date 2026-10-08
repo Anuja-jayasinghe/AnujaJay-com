@@ -25,6 +25,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-white w-full overflow-x-hidden relative">
       <SplashScreen />
+      <noscript><style>{".splash-screen{display:none}"}</style></noscript>
       <Navbar />
       <div className="w-full overflow-x-hidden relative">
         <Hero />
