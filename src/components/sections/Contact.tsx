@@ -1,19 +1,21 @@
 "use client";
-import { useState, FormEvent, useEffect, type ReactNode } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
+  Wifi,
   Cpu,
   Settings,
   Mail,
   Github,
   Linkedin,
-  ChevronRight
+  ChevronRight,
+  Database
 } from "lucide-react";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-export default function Contact({ statusSlot }: { statusSlot?: ReactNode }) {
+export default function Contact() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [diagnosticLogs, setDiagnosticLogs] = useState<string[]>([]);
@@ -110,8 +112,27 @@ export default function Contact({ statusSlot }: { statusSlot?: ReactNode }) {
               </p>
             </div>
 
-            {/* Live GitHub activity, supplied by the server (see GitHubActivityStatus). */}
-            {statusSlot}
+            {/* System Status Dashboard */}
+            <div className="bg-gray-100/50 rounded border border-gray-200 p-4 space-y-4 shadow-inner">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[9px] font-bold text-gray-400">HUB_STATUS</span>
+                <span className="font-mono text-[9px] font-bold text-green-500 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> ONLINE
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-white p-2 rounded border border-gray-100 flex flex-col gap-1">
+                  <Wifi size={10} className="text-gray-400" />
+                  <span className="font-mono text-[8px] text-gray-500 uppercase">Uplink</span>
+                  <span className="font-mono text-[9px] font-bold text-gray-900 uppercase">1.2 Gbps</span>
+                </div>
+                <div className="bg-white p-2 rounded border border-gray-100 flex flex-col gap-1">
+                  <Database size={10} className="text-gray-400" />
+                  <span className="font-mono text-[8px] text-gray-500 uppercase">Storage</span>
+                  <span className="font-mono text-[9px] font-bold text-gray-900 uppercase">32% AVIL</span>
+                </div>
+              </div>
+            </div>
 
             {/* Social Links - EMERGENCY_CHANNELS */}
             <div className="space-y-3">
