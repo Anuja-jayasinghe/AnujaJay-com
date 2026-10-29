@@ -36,12 +36,16 @@ Remaining audit findings are dev-only (vitest/tinypool); fixing them means a bre
 | A7 | `03b6dd7` | PNG manifest icons (192/512), maskable entry, `themeColor`, no portrait lock. |
 | A8 | `aa54df0` | README no longer claims a dark theme. |
 
-## Real data instead of invented text
+## Real data instead of invented text (reverted)
 
-| ID | Commit | What |
+Both items were reverted on request: live values go stale between releases,
+and the original static decoration is preferred. The original footer and the
+original "Initiate Broadcast" status panel are back.
+
+| ID | Commit | Reverted by |
 |---|---|---|
-| R1a | `af3baa2` | Contact status tiles ("Uplink 1.2 Gbps", "32% AVIL") replaced by real GitHub activity (last active, contributions this year) from the same cached request the Skills timeline makes. Omitted if GitHub is unreachable. |
-| R1b | `1ade9bd` | Footer shows the real commit SHA (linked), build date and `package.json` version; removed `AUTH_HASH` and `ENCRYPTION_ACTIVE`. Values inlined at build time; no runtime cost. |
+| R1a | `af3baa2` | "Revert R1a" (contact status block) |
+| R1b | `1ade9bd` | "Revert R1b" (footer) |
 
 ## Easter eggs and extras
 
@@ -67,6 +71,5 @@ E1, E2 and E6 each add one line to `layout.tsx`; E3 and E6 touch `Navbar.tsx`.
 1. `/dir/Anuja_CV.pdf` renders the framed PDF (could not be confirmed visually in automated testing).
 2. Skills icons (the devicon rows) all show.
 3. Contact form still sends a real message (the CSP allows `api.web3forms.com`).
-4. Footer shows the real commit SHA, and the contact panel shows GitHub activity.
-5. Vercel Analytics / Speed Insights still report (same-origin scripts).
-6. Wording of E2 (secret terminal), E4 (`humans.txt`, `security.txt`), and the console banner, since these speak as you.
+4. Vercel Analytics / Speed Insights still report (same-origin scripts).
+5. Wording of E2 (secret terminal), E4 (`humans.txt`, `security.txt`), and the console banner, since these speak as you.
