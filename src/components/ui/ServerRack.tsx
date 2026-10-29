@@ -217,7 +217,7 @@ export default function ServerRack() {
                     {/* Blade Title */}
                     <div className="flex-1 flex items-center justify-between min-w-0">
                       <p className="font-mono text-[11px] font-bold text-gray-700 tracking-tight truncate">
-                        <span className="text-gray-500 mr-1.5">
+                        <span className="text-gray-400 mr-1.5">
                           SLOT_{String(certificatesData.length - index).padStart(2, "0")}
                         </span>
                         {cert.issuer.toUpperCase()}::{cert.title.replace(/\s+/g, "_").toUpperCase()}
@@ -273,7 +273,7 @@ export default function ServerRack() {
                               />
                             ) : (
                               <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-[11px] font-mono text-gray-600 uppercase tracking-widest">
+                                <span className="text-[11px] font-mono text-gray-400 uppercase tracking-widest">
                                   NO_IMG_LOADED
                                 </span>
                               </div>
@@ -284,7 +284,7 @@ export default function ServerRack() {
                           <div className="flex-1 space-y-3">
                             <div className="flex items-center gap-2">
                               <Terminal size={12} className="text-blue-500" />
-                              <span className="text-[11px] font-mono text-blue-700 uppercase tracking-tighter">
+                              <span className="text-[11px] font-mono text-blue-500 uppercase tracking-tighter">
                                 Verified_Credential_Metadata
                               </span>
                             </div>
@@ -322,7 +322,7 @@ export default function ServerRack() {
                                 PUSH_TO_VERIFY
                               </a>
                               <div className="flex flex-col">
-                                <span className="text-[11px] font-mono text-gray-600 uppercase">Category</span>
+                                <span className="text-[11px] font-mono text-gray-500 uppercase">Category</span>
                                 <span className="text-[11px] font-mono text-gray-700 font-bold uppercase">
                                   {cert.category}
                                 </span>

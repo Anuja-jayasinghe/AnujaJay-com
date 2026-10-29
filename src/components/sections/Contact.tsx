@@ -92,7 +92,7 @@ export default function Contact() {
           <div className="h-0.5 flex-1 bg-gray-200" />
           <div className="flex items-center gap-2 group">
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <p className="font-mono text-sm font-black tracking-[0.3em] uppercase text-gray-500">
+            <p className="font-mono text-sm font-black tracking-[0.3em] uppercase text-gray-400">
               COMMS_CHANNEL::01
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function Contact() {
 
             {/* Social Links - EMERGENCY_CHANNELS */}
             <div className="space-y-3">
-              <span className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-widest block">EMERGENCY_CHANNELS</span>
+              <span className="font-mono text-[11px] font-bold text-gray-400 uppercase tracking-widest block">EMERGENCY_CHANNELS</span>
               <div className="flex gap-2">
                 {[
                   { icon: <Github size={18} aria-hidden="true" />, href: "https://github.com/Anuja-jayasinghe", label: "GitHub profile" },
@@ -149,7 +149,7 @@ export default function Contact() {
                     aria-label={channel.label}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-10 h-10 flex items-center justify-center rounded bg-white border border-gray-200 text-gray-500 hover:text-blue-600 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"
+                    className="w-10 h-10 flex items-center justify-center rounded bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"
                   >
                     <div className="group-hover:scale-110 transition-transform">{channel.icon}</div>
                   </a>
@@ -189,7 +189,7 @@ export default function Contact() {
                       <Send className="w-10 h-10 text-blue-600 animate-bounce" />
                     </div>
                     <h3 className="text-2xl font-black font-mono text-gray-900 mb-2 uppercase tracking-tight">Transmission_Stable</h3>
-                    <p className="text-gray-600 font-mono text-[11px] mb-8 uppercase">PAYLOAD SUCCESSFULLY DELIVERED TO THE HUB.</p>
+                    <p className="text-gray-500 font-mono text-[11px] mb-8 uppercase">PAYLOAD SUCCESSFULLY DELIVERED TO THE HUB.</p>
                     <button
                       onClick={() => setStatus("idle")}
                       className="bg-blue-600 text-white font-mono text-[11px] font-black px-10 py-4 rounded-sm hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/20 active:scale-95"
@@ -211,7 +211,7 @@ export default function Contact() {
                     {/* Background CRT Scanline Effect for inputs */}
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="space-y-3">
-                        <label htmlFor="name" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-widest flex items-center gap-2">
+                        <label htmlFor="name" className="font-mono text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                           <ChevronRight size={10} className="text-blue-500" /> COM_ID::NAME
                         </label>
                         <div className="relative group/field">
@@ -222,14 +222,14 @@ export default function Contact() {
                             required
                             disabled={status === "sending"}
                             suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
-                            className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-600 shadow-inner"
+                            className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-400 shadow-inner"
                             placeholder="ENTER_SENDER_IDENTITY..."
                           />
                           <div className="absolute inset-x-0 bottom-0 h-[1px] bg-blue-500 scale-x-0 group-focus-within/field:scale-x-100 transition-transform duration-500" />
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <label htmlFor="email" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-widest flex items-center gap-2">
+                        <label htmlFor="email" className="font-mono text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                           <ChevronRight size={10} className="text-blue-500" /> LINK_ADDR::EMAIL
                         </label>
                         <div className="relative group/field">
@@ -240,7 +240,7 @@ export default function Contact() {
                             required
                             disabled={status === "sending"}
                             suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
-                            className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-600 shadow-inner"
+                            className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all placeholder:text-gray-400 shadow-inner"
                             placeholder="ENTER_CONTACT_UPLINK..."
                           />
                           <div className="absolute inset-x-0 bottom-0 h-[1px] bg-blue-500 scale-x-0 group-focus-within/field:scale-x-100 transition-transform duration-500" />
@@ -249,7 +249,7 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-3">
-                      <label htmlFor="message" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-widest flex items-center gap-2">
+                      <label htmlFor="message" className="font-mono text-[11px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
                         <ChevronRight size={10} className="text-blue-500" /> RAW_DATA::PAYLOAD
                       </label>
                       <div className="relative group/field">
@@ -260,7 +260,7 @@ export default function Contact() {
                           required
                           disabled={status === "sending"}
                           suppressHydrationWarning // browser autofill extensions inject attrs post-hydration
-                          className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all resize-none placeholder:text-gray-600 shadow-inner"
+                          className="w-full bg-gray-200 border border-gray-300 rounded-sm px-4 py-4 text-accent font-mono font-bold text-xs focus:outline-none focus:border-accent transition-all resize-none placeholder:text-gray-400 shadow-inner"
                           placeholder="ENCODE_YOUR_MESSAGE_HERE..."
                         />
                         <div className="absolute inset-x-0 bottom-0 h-[1px] bg-blue-500 scale-x-0 group-focus-within/field:scale-x-100 transition-transform duration-500" />
@@ -272,7 +272,7 @@ export default function Contact() {
                         role="alert"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="bg-red-950/20 border border-red-500/30 rounded-sm px-4 py-3 text-red-700 text-[11px] font-mono uppercase font-black"
+                        className="bg-red-950/20 border border-red-500/30 rounded-sm px-4 py-3 text-red-500 text-[11px] font-mono uppercase font-black"
                       >
                         {errorMsg}
                       </motion.div>

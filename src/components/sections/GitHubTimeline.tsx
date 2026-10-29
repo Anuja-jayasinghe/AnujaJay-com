@@ -228,7 +228,7 @@ export function GitHubTimeline({
           {/* Day labels column */}
           <div className="flex flex-col pr-1 select-none">
             <div className="h-3.5" /> {/* Month label row spacer */}
-            <div className="flex flex-col gap-[3px] text-[10px] leading-none text-gray-500">
+            <div className="flex flex-col gap-[3px] text-[10px] leading-none text-gray-400">
               <span className="h-[10px] flex items-center"></span> {/* Sun */}
               <span className="h-[10px] flex items-center">Mon</span>
               <span className="h-[10px] flex items-center"></span> {/* Tue */}

@@ -31,7 +31,7 @@ Remaining audit findings are dev-only (vitest/tinypool); fixing them means a bre
 | A2 | `d9f902b` | Accessible names for icon-only links (navbar, contact socials, logo). |
 | A3 | `143c60c` | Heading order fixed (h1 first, Contact has a real h2); skip-to-content link. Visuals unchanged. |
 | A4 | `656a9bc` | `prefers-reduced-motion`: decorative animation off (not the spinner), marquee becomes a static grid, framer-motion `reducedMotion="user"`, marquee duplicate rows `aria-hidden`. |
-| A5 | `91a64c8` | Contrast and minimum size for meaningful text (About tabs, Contact form, ServerRack, timeline); decorative chrome `aria-hidden`; form error `role=alert`. |
+| A5 | `91a64c8` + A5b | Text size and semantics only: 10-11px minimum for meaningful text, decorative chrome `aria-hidden`, form error `role=alert`. The original subtle greys are kept (A5b restored them), so the faint greys still fall below WCAG AA contrast by design. |
 | A6 | `cfbae48` | Frosted navbar backdrop after scrolling so the logo/menu stop overlapping text. Unchanged at top of page. |
 | A7 | `03b6dd7` | PNG manifest icons (192/512), maskable entry, `themeColor`, no portrait lock. |
 | A8 | `aa54df0` | README no longer claims a dark theme. |
