@@ -63,7 +63,7 @@ export default function PortfolioFeaturedCard({
               </a>
             )
           ) : (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center font-mono text-gray-400">
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center font-mono text-gray-600">
               [No Image]
             </div>
           )}

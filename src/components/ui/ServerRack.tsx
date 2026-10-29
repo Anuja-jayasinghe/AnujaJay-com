@@ -35,9 +35,9 @@ function SpectrumDisplay() {
         ))}
       </div>
       <div className="flex justify-between">
-        <span className="text-[6px] font-mono text-green-600/60 uppercase tracking-widest">CPU</span>
-        <span className="text-[6px] font-mono text-gray-500/70 uppercase tracking-widest">NET</span>
-        <span className="text-[6px] font-mono text-gray-400/70 uppercase tracking-widest">I/O</span>
+        <span aria-hidden="true" className="text-[6px] font-mono text-green-600/60 uppercase tracking-widest">CPU</span>
+        <span aria-hidden="true" className="text-[6px] font-mono text-gray-500/70 uppercase tracking-widest">NET</span>
+        <span aria-hidden="true" className="text-[6px] font-mono text-gray-400/70 uppercase tracking-widest">I/O</span>
       </div>
     </div>
   );
@@ -72,7 +72,7 @@ export default function ServerRack() {
             JaySync_Lab :: CERT_VAULT_v2
           </h3>
         </div>
-        <div className="text-[10px] font-mono text-gray-500 flex gap-4 uppercase items-center">
+        <div aria-hidden="true" className="text-[10px] font-mono text-gray-500 flex gap-4 uppercase items-center">
           <span className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block shadow-[0_0_4px_#22c55e]" />
             I/O: Active
@@ -95,8 +95,8 @@ export default function ServerRack() {
 
           {/* Unit Markers - Left */}
           <div className="absolute left-[-8px] top-0 bottom-0 w-2 flex flex-col justify-around py-1.5 opacity-40 select-none">
-            <span className="text-[6px] font-mono font-bold text-gray-500">1U</span>
-            <span className="text-[6px] font-mono font-bold text-gray-500">2U</span>
+            <span aria-hidden="true" className="text-[6px] font-mono font-bold text-gray-500">1U</span>
+            <span aria-hidden="true" className="text-[6px] font-mono font-bold text-gray-500">2U</span>
           </div>
 
           <div className="flex-1 flex items-center justify-between gap-3 z-10">
@@ -106,7 +106,7 @@ export default function ServerRack() {
                 <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_#22c55e] animate-pulse" />
                 <div className="w-2 h-2 rounded-full bg-amber-400 animate-psu-blink shadow-[0_0_4px_#fbbf24]" />
               </div>
-              <span className="text-[7px] font-mono text-gray-400 uppercase tracking-widest">PSU</span>
+              <span aria-hidden="true" className="text-[7px] font-mono text-gray-400 uppercase tracking-widest">PSU</span>
             </div>
 
             {/* Left Vent Grilles */}
@@ -128,7 +128,7 @@ export default function ServerRack() {
 
             {/* Temp Gauge */}
             <div className="flex flex-col items-end gap-1 shrink-0">
-              <span className="text-[7px] font-mono text-gray-400 uppercase tracking-widest">TEMP</span>
+              <span aria-hidden="true" className="text-[7px] font-mono text-gray-400 uppercase tracking-widest">TEMP</span>
               <div className="w-10 h-1.5 bg-gray-400/30 rounded-full overflow-hidden border border-gray-400/20">
                 <div className="h-full bg-gradient-to-r from-green-500 to-amber-400 animate-temp-bar rounded-full" />
               </div>
@@ -137,8 +137,8 @@ export default function ServerRack() {
 
           {/* Unit Markers - Right */}
           <div className="absolute right-[-8px] top-0 bottom-0 w-2 flex flex-col justify-around py-1.5 opacity-40 select-none">
-            <span className="text-[6px] font-mono font-bold text-gray-500">1U</span>
-            <span className="text-[6px] font-mono font-bold text-gray-500">2U</span>
+            <span aria-hidden="true" className="text-[6px] font-mono font-bold text-gray-500">1U</span>
+            <span aria-hidden="true" className="text-[6px] font-mono font-bold text-gray-500">2U</span>
           </div>
         </div>
 
@@ -216,8 +216,8 @@ export default function ServerRack() {
 
                     {/* Blade Title */}
                     <div className="flex-1 flex items-center justify-between min-w-0">
-                      <p className="font-mono text-[10px] font-bold text-gray-700 tracking-tight truncate">
-                        <span className="text-gray-400 mr-1.5">
+                      <p className="font-mono text-[11px] font-bold text-gray-700 tracking-tight truncate">
+                        <span className="text-gray-500 mr-1.5">
                           SLOT_{String(certificatesData.length - index).padStart(2, "0")}
                         </span>
                         {cert.issuer.toUpperCase()}::{cert.title.replace(/\s+/g, "_").toUpperCase()}
@@ -239,7 +239,7 @@ export default function ServerRack() {
                             />
                           ))}
                         </div>
-                        <span className="text-[8px] font-mono text-gray-400 group-hover:text-blue-600 transition-colors uppercase">
+                        <span aria-hidden="true" className="text-[8px] font-mono text-gray-400 group-hover:text-blue-600 transition-colors uppercase">
                           {isActive ? "READ…" : "STBY"}
                         </span>
                       </div>
@@ -273,7 +273,7 @@ export default function ServerRack() {
                               />
                             ) : (
                               <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-[9px] font-mono text-gray-400 uppercase tracking-widest">
+                                <span className="text-[11px] font-mono text-gray-600 uppercase tracking-widest">
                                   NO_IMG_LOADED
                                 </span>
                               </div>
@@ -284,7 +284,7 @@ export default function ServerRack() {
                           <div className="flex-1 space-y-3">
                             <div className="flex items-center gap-2">
                               <Terminal size={12} className="text-blue-500" />
-                              <span className="text-[10px] font-mono text-blue-500 uppercase tracking-tighter">
+                              <span className="text-[11px] font-mono text-blue-700 uppercase tracking-tighter">
                                 Verified_Credential_Metadata
                               </span>
                             </div>
@@ -297,7 +297,7 @@ export default function ServerRack() {
                             <div className="flex gap-4 pt-1">
                               {(["AUTH", "SIG", "PKI"] as const).map((label, i) => (
                                 <div key={label} className="flex flex-col gap-1">
-                                  <span className="text-[7px] font-mono text-gray-400 uppercase">{label}</span>
+                                  <span aria-hidden="true" className="text-[7px] font-mono text-gray-400 uppercase">{label}</span>
                                   <div className="w-12 h-1 bg-gray-300 rounded-full overflow-hidden">
                                     <div
                                       className="h-full bg-blue-500 rounded-full animate-stat-fill"
@@ -316,14 +316,14 @@ export default function ServerRack() {
                                 href={cert.verifyUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black font-mono px-4 py-2 rounded-sm transition-all shadow-lg shadow-blue-900/10"
+                                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-black font-mono px-4 py-2 rounded-sm transition-all shadow-lg shadow-blue-900/10"
                               >
                                 <ExternalLink size={10} />
                                 PUSH_TO_VERIFY
                               </a>
                               <div className="flex flex-col">
-                                <span className="text-[8px] font-mono text-gray-500 uppercase">Category</span>
-                                <span className="text-[10px] font-mono text-gray-700 font-bold uppercase">
+                                <span className="text-[11px] font-mono text-gray-600 uppercase">Category</span>
+                                <span className="text-[11px] font-mono text-gray-700 font-bold uppercase">
                                   {cert.category}
                                 </span>
                               </div>
@@ -380,13 +380,13 @@ export default function ServerRack() {
                   className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_4px_#22c55e]"
                   style={{ animationDelay: "0.5s" }}
                 />
-                <span className="text-[8px] font-mono text-gray-400 uppercase opacity-50 ml-0.5">PSU</span>
+                <span aria-hidden="true" className="text-[8px] font-mono text-gray-400 uppercase opacity-50 ml-0.5">PSU</span>
               </div>
-              <span className="flex items-center gap-1 text-[8px] font-mono text-gray-400 uppercase opacity-50">
+              <span aria-hidden="true" className="flex items-center gap-1 text-[8px] font-mono text-gray-400 uppercase opacity-50">
                 <div className="w-1 h-1 rounded-full bg-green-500/60" />
                 LNK::UP
               </span>
-              <span className="hidden sm:flex items-center gap-1 text-[8px] font-mono text-gray-400 uppercase opacity-50">
+              <span aria-hidden="true" className="hidden sm:flex items-center gap-1 text-[8px] font-mono text-gray-400 uppercase opacity-50">
                 <div className="w-1 h-1 rounded-full bg-blue-500/60 animate-psu-blink" />
                 CPU::MOD
               </span>

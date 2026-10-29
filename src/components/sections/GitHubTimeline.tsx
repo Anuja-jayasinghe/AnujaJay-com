@@ -156,7 +156,7 @@ function ContributionSquare({ day }: { day?: ContributionDay }) {
       title={`${day.contributionCount} contributions on ${formattedDate}`}
     >
       {/* Tooltip */}
-      <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-[9px] text-white opacity-0 transition-opacity group-hover:opacity-100 z-10 shadow-lg">
+      <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100 z-10 shadow-lg">
         {day.contributionCount} {day.contributionCount === 1 ? "contribution" : "contributions"}
         <br />
         <span className="text-gray-300">{formattedDate}</span>
@@ -228,7 +228,7 @@ export function GitHubTimeline({
           {/* Day labels column */}
           <div className="flex flex-col pr-1 select-none">
             <div className="h-3.5" /> {/* Month label row spacer */}
-            <div className="flex flex-col gap-[3px] text-[8px] text-gray-400">
+            <div className="flex flex-col gap-[3px] text-[10px] leading-none text-gray-500">
               <span className="h-[10px] flex items-center"></span> {/* Sun */}
               <span className="h-[10px] flex items-center">Mon</span>
               <span className="h-[10px] flex items-center"></span> {/* Tue */}
@@ -244,11 +244,11 @@ export function GitHubTimeline({
               {/* Month / Year label row */}
               <div className="h-3.5 flex items-end pb-0.5">
                 {week.yearLabel ? (
-                  <span className="text-[9px] font-bold text-blue-700 tracking-wide leading-none whitespace-nowrap">
+                  <span className="text-[10px] font-bold text-blue-700 tracking-wide leading-none whitespace-nowrap">
                     {week.yearLabel}
                   </span>
                 ) : week.monthLabel ? (
-                  <span className="text-[9px] font-semibold text-gray-500 leading-none whitespace-nowrap">
+                  <span className="text-[10px] font-semibold text-gray-500 leading-none whitespace-nowrap">
                     {week.monthLabel}
                   </span>
                 ) : null}

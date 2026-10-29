@@ -46,7 +46,7 @@ export default function About() {
                                 <button
                                     key={p.id}
                                     onClick={() => setActive(i)}
-                                    className={`relative flex items-center gap-2 sm:gap-2.5 pb-4 text-xs sm:text-sm font-bold font-mono transition-colors duration-300 whitespace-nowrap ${isActive ? "text-black" : "text-black/30 hover:text-black/60"
+                                    className={`relative flex items-center gap-2 sm:gap-2.5 pb-4 text-xs sm:text-sm font-bold font-mono transition-colors duration-300 whitespace-nowrap ${isActive ? "text-black" : "text-black/60 hover:text-black"
                                         }`}
                                 >
                                     <Icon className="w-4 h-4" />
