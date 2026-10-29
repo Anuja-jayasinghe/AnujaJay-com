@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Turret_Road, Numans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ConsoleBanner from "@/components/ui/ConsoleBanner";
 import GoToTopButton from "@/components/ui/GoToTopButton";
 import MotionProvider from "@/components/ui/MotionProvider";
 import { getPersonJsonLd, getWebsiteJsonLd } from "@/lib/structured-data";
@@ -117,6 +118,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <GoToTopButton />
+        <ConsoleBanner />
       </body>
     </html>
   );
