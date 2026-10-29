@@ -131,8 +131,13 @@ export default function Navbar() {
 
     return (
         <>
-            <header className="fixed top-0 z-50 w-full font-mono pointer-events-none">
-                <div className="site-shell h-16 sm:h-20 md:h-24 flex items-center justify-between">
+            {/* Once scrolled, a frosted backdrop keeps the floating logo and menu button from overlapping page text. */}
+            <header className={`fixed top-0 z-50 w-full font-mono pointer-events-none transition-[background-color,box-shadow] duration-300 ${
+                scrolled ? "bg-white/85 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]" : ""
+            }`}>
+                <div className={`site-shell flex items-center justify-between transition-[height] duration-300 ${
+                    scrolled ? "h-14 sm:h-16" : "h-16 sm:h-20 md:h-24"
+                }`}>
 
                     {/* LEFT: Logo — always floating */}
                     <Link
