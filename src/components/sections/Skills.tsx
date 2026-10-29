@@ -7,6 +7,9 @@ const ServerRack = dynamic(() => import("../ui/ServerRack"), {
         <div className="w-full h-64 rounded-lg bg-gray-100 border border-black/10 animate-pulse" />
     ),
 });
+// Pinned so the icon set can't change under the site; bump deliberately.
+const DEVICON_VERSION = "v2.18.0";
+
 const row1 = [
     "react/react-original", "nextjs/nextjs-original", "tailwindcss/tailwindcss-original",
     "html5/html5-original", "css3/css3-original", "javascript/javascript-original",
@@ -28,7 +31,7 @@ function MarqueeRow({ icons, reverse = false }: { icons: string[], reverse?: boo
                 return (
                 <Image
                     key={idx}
-                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${icon}.svg`}
+                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon@${DEVICON_VERSION}/icons/${icon}.svg`}
                     alt={`${label} logo`}
                     width={80}
                     height={80}
