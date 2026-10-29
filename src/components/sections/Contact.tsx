@@ -139,13 +139,14 @@ export default function Contact() {
               <span className="font-mono text-[10px] font-bold text-gray-400 uppercase tracking-widest block">EMERGENCY_CHANNELS</span>
               <div className="flex gap-2">
                 {[
-                  { icon: <Github size={18} />, href: "https://github.com/Anuja-jayasinghe", label: "GH" },
-                  { icon: <Linkedin size={18} />, href: "https://linkedin.com/in/anuja-jayasinghe", label: "LI" },
-                  { icon: <Mail size={18} />, href: "mailto:anujajayasinhe@gmail.com", label: "EM" }
+                  { icon: <Github size={18} aria-hidden="true" />, href: "https://github.com/Anuja-jayasinghe", label: "GitHub profile" },
+                  { icon: <Linkedin size={18} aria-hidden="true" />, href: "https://linkedin.com/in/anuja-jayasinghe", label: "LinkedIn profile" },
+                  { icon: <Mail size={18} aria-hidden="true" />, href: "mailto:anujajayasinhe@gmail.com", label: "Send an email" }
                 ].map((channel, i) => (
                   <a
                     key={i}
                     href={channel.href}
+                    aria-label={channel.label}
                     target="_blank"
                     rel="noreferrer"
                     className="w-10 h-10 flex items-center justify-center rounded bg-white border border-gray-200 text-gray-400 hover:text-blue-600 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all group"

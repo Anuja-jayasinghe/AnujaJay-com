@@ -84,7 +84,7 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                         className="absolute top-6 right-6 sm:top-8 sm:right-8 text-white hover:text-blue-500 transition-colors p-2 rounded-lg hover:bg-white/10"
                         aria-label="Close Menu"
                     >
-                        <X className="w-8 h-8 sm:w-10 sm:h-10" />
+                        <X className="w-8 h-8 sm:w-10 sm:h-10" aria-hidden="true" />
                     </button>
 
                     {/* Navigation Links */}
@@ -144,11 +144,12 @@ export default function Navbar() {
                                 history.replaceState(null, '', '/');
                             }
                         }}
+                        aria-label="Anuja Jayasinghe, back to top"
                         className="block py-2 pointer-events-auto"
                     >
                         <motion.img
                             src="/logo-black.svg"
-                            alt="Anuja Logo"
+                            alt=""
                             animate={{
                                 width: scrolled ? 120 : 200,
                                 opacity: scrolled ? 0.55 : 1,
@@ -172,14 +173,14 @@ export default function Navbar() {
                         <div className={`hidden sm:flex items-center gap-6 mr-2 transition-all duration-300 ${
                             scrolled ? "opacity-0 pointer-events-none" : "opacity-100"
                         }`}>
-                            <Link href="https://github.com/Anuja-jayasinghe" target="_blank" rel="noopener noreferrer" className="text-black hover:text-accent transition-colors">
-                                <Github className="w-6 h-6" />
+                            <Link href="https://github.com/Anuja-jayasinghe" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile (opens in a new tab)" className="text-black hover:text-accent transition-colors">
+                                <Github className="w-6 h-6" aria-hidden="true" />
                             </Link>
-                            <Link href="https://linkedin.com/in/anuja-jayasinghe" target="_blank" rel="noopener noreferrer" className="text-black hover:text-accent transition-colors">
-                                <Linkedin className="w-6 h-6" />
+                            <Link href="https://linkedin.com/in/anuja-jayasinghe" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile (opens in a new tab)" className="text-black hover:text-accent transition-colors">
+                                <Linkedin className="w-6 h-6" aria-hidden="true" />
                             </Link>
-                            <Link href="mailto:anujajayasinhe@gmail.com" className="text-black hover:text-accent transition-colors">
-                                <Mail className="w-6 h-6" />
+                            <Link href="mailto:anujajayasinhe@gmail.com" aria-label="Send an email" className="text-black hover:text-accent transition-colors">
+                                <Mail className="w-6 h-6" aria-hidden="true" />
                             </Link>
                         </div>
 
@@ -188,7 +189,7 @@ export default function Navbar() {
                             className="text-black hover:text-accent transition-colors p-2 -mr-2 rounded-lg hover:bg-black/5"
                             aria-label="Open Menu"
                         >
-                            <Menu className="w-10 h-10" />
+                            <Menu className="w-10 h-10" aria-hidden="true" />
                         </button>
                     </div>
                 </div>
