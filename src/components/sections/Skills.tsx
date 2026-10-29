@@ -23,8 +23,10 @@ const row2 = [
 ];
 
 function MarqueeRow({ icons, reverse = false }: { icons: string[], reverse?: boolean }) {
-    const content = (
-        <div className={`flex gap-16 items-center justify-around min-w-full shrink-0 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
+    // The copies exist only to make the loop seamless, so assistive tech
+    // should read the icon set once.
+    const content = (copy: number) => (
+        <div aria-hidden={copy > 0 ? true : undefined} className={`flex gap-16 items-center justify-around min-w-full shrink-0 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}>
             {icons.map((icon, idx) => {
                 const techName = icon.split('/')[0];
                 const label = techName.charAt(0).toUpperCase() + techName.slice(1);
@@ -43,10 +45,10 @@ function MarqueeRow({ icons, reverse = false }: { icons: string[], reverse?: boo
     );
 
     return (
-        <div className="flex overflow-hidden w-full gap-16">
-            {content}
-            {content}
-            {content}
+        <div className="marquee-row flex overflow-hidden w-full gap-16">
+            {content(0)}
+            {content(1)}
+            {content(2)}
         </div>
     );
 }

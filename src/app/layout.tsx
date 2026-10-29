@@ -3,6 +3,7 @@ import { Turret_Road, Numans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import GoToTopButton from "@/components/ui/GoToTopButton";
+import MotionProvider from "@/components/ui/MotionProvider";
 import { getPersonJsonLd, getWebsiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -111,7 +112,7 @@ export default function RootLayout({
           // Escape "<" so no string in the payload can close the script tag.
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />
         <GoToTopButton />

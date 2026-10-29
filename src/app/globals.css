@@ -104,6 +104,29 @@ body {
   }
 }
 
+/* Respect the OS "reduce motion" setting for decorative loops. The splash has
+   its own rules above; the spinner stays because it signals a pending action. */
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-"]:not(.animate-spin) {
+    animation: none !important;
+  }
+
+  /* A marquee that can't scroll becomes a static, wrapping grid. */
+  .marquee-row {
+    overflow: visible;
+  }
+
+  .marquee-row > :not(:first-child) {
+    display: none;
+  }
+
+  .marquee-row > :first-child {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
+
 /* One content grid for every section, with breathing room at each viewport. */
 .site-shell {
   width: min(calc(100% - 2 * clamp(1rem, 4vw, 4rem)), 1680px);
