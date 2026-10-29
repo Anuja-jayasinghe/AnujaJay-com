@@ -1,5 +1,9 @@
 import { Suspense } from "react";
-import { fetchGitHubContributions, fetchGitHubStats } from "@/lib/github-contributions";
+import {
+  fetchGitHubContributions,
+  fetchGitHubStats,
+  getDefaultYears,
+} from "@/lib/github-contributions";
 import { GitHubTimeline } from "./GitHubTimeline";
 import { GitHubTimelineSkeleton } from "../ui/GitHubTimelineSkeleton";
 
@@ -41,7 +45,7 @@ function EmptyState() {
  */
 async function GitHubTimelineContent({
   username = "Anuja-jayasinghe",
-  years = [2024, 2025, 2026],
+  years = getDefaultYears(),
 }: GitHubTimelineServerProps) {
   let contributions;
   let stats;
@@ -78,7 +82,7 @@ async function GitHubTimelineContent({
  */
 export function GitHubTimelineServer({
   username = "Anuja-jayasinghe",
-  years = [2024, 2025, 2026],
+  years,
 }: GitHubTimelineServerProps) {
   return (
     <Suspense fallback={<GitHubTimelineSkeleton />}>

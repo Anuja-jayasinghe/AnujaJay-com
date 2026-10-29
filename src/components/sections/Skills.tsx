@@ -79,7 +79,7 @@ export default function Skills() {
             {/* GitHub Contribution Timeline */}
             <div className="mt-16 sm:mt-24 site-shell">
                 <div className="w-full">
-                    <GitHubTimelineServer username="Anuja-jayasinghe" years={[2024, 2025, 2026]} />
+                    <GitHubTimelineServer username="Anuja-jayasinghe" />
                 </div>
             </div>
 

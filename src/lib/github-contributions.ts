@@ -41,31 +41,44 @@ function getGitHubToken(): string {
   return token;
 }
 
-/**
- * Constructs GraphQL query for fetching contributions for a specific year
- */
-function buildContributionQuery(year: number, username: string): string {
-  const from = `${year}-01-01T00:00:00Z`;
-  const to = `${year}-12-31T23:59:59Z`;
-
-  return `
-    query {
-      user(login: "${username}") {
-        contributionsCollection(from: "${from}", to: "${to}") {
-          contributionCalendar {
-            totalContributions
-            weeks {
-              contributionDays {
-                date
-                contributionCount
-                weekday
-              }
+const CONTRIBUTION_QUERY = `
+  query ($username: String!, $from: DateTime!, $to: DateTime!) {
+    user(login: $username) {
+      contributionsCollection(from: $from, to: $to) {
+        contributionCalendar {
+          totalContributions
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+              weekday
             }
           }
         }
       }
     }
-  `;
+  }
+`;
+
+const STATS_QUERY = `
+  query ($username: String!) {
+    user(login: $username) {
+      repositories(first: 100, isFork: false) {
+        nodes {
+          stargazerCount
+        }
+      }
+    }
+  }
+`;
+
+/** First year shown on the timeline; later years are added automatically. */
+const FIRST_YEAR = 2024;
+
+/** Every year from FIRST_YEAR through the current one. */
+export function getDefaultYears(): number[] {
+  const current = new Date().getUTCFullYear();
+  return Array.from({ length: current - FIRST_YEAR + 1 }, (_, i) => FIRST_YEAR + i);
 }
 
 /**
@@ -75,7 +88,11 @@ async function fetchYearContributions(
   year: number,
   username: string
 ): Promise<ContributionDay[]> {
-  const query = buildContributionQuery(year, username);
+  const variables = {
+    username,
+    from: `${year}-01-01T00:00:00Z`,
+    to: `${year}-12-31T23:59:59Z`,
+  };
   const token = getGitHubToken();
 
   const response = await fetch(GITHUB_API_URL, {
@@ -84,7 +101,7 @@ async function fetchYearContributions(
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query: CONTRIBUTION_QUERY, variables }),
     next: { revalidate: 3600 }, // Cache for 1 hour
   });
 
@@ -127,11 +144,11 @@ async function fetchYearContributions(
 /**
  * Fetches contributions for multiple years and merges them
  * @param username GitHub username
- * @param years Array of years to fetch (e.g., [2024, 2025, 2026])
+ * @param years Array of years to fetch; defaults to every year since FIRST_YEAR
  */
 export async function fetchGitHubContributions(
   username: string,
-  years: number[] = [2024, 2025, 2026]
+  years: number[] = getDefaultYears()
 ): Promise<ContributionDay[]> {
   try {
     const allContributions: ContributionDay[] = [];
@@ -160,18 +177,6 @@ export async function fetchGitHubContributions(
 export async function fetchGitHubStats(username: string): Promise<{
   totalStars: number;
 }> {
-  const query = `
-    query {
-      user(login: "${username}") {
-        repositories(first: 100, isFork: false) {
-          nodes {
-            stargazerCount
-          }
-        }
-      }
-    }
-  `;
-
   const token = getGitHubToken();
   const response = await fetch(GITHUB_API_URL, {
     method: "POST",
@@ -179,7 +184,7 @@ export async function fetchGitHubStats(username: string): Promise<{
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query: STATS_QUERY, variables: { username } }),
     next: { revalidate: 3600 }, // Cache for 1 hour
   });
 
