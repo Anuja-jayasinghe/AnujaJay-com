@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ConsoleBanner from "@/components/ui/ConsoleBanner";
 import GoToTopButton from "@/components/ui/GoToTopButton";
+import KonamiTerminal from "@/components/ui/KonamiTerminal";
 import MotionProvider from "@/components/ui/MotionProvider";
 import { getPersonJsonLd, getWebsiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
@@ -119,6 +120,7 @@ export default function RootLayout({
         <SpeedInsights />
         <GoToTopButton />
         <ConsoleBanner />
+        <KonamiTerminal />
       </body>
     </html>
   );
