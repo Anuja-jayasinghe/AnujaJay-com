@@ -92,9 +92,9 @@ export default function Contact() {
           <div className="h-0.5 flex-1 bg-gray-200" />
           <div className="flex items-center gap-2 group">
             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-            <h2 className="font-mono text-sm font-black tracking-[0.3em] uppercase text-gray-400">
+            <p className="font-mono text-sm font-black tracking-[0.3em] uppercase text-gray-400">
               COMMS_CHANNEL::01
-            </h2>
+            </p>
           </div>
           <div className="h-0.5 flex-1 bg-gray-200" />
         </div>
@@ -104,9 +104,9 @@ export default function Contact() {
           {/* Left Side: Diagnostic Display & Socials */}
           <div className="w-full xl:w-1/3 space-y-8">
             <div>
-              <h3 className="text-4xl font-black text-gray-900 leading-none mb-4 uppercase tracking-tighter">
+              <h2 className="text-4xl font-black text-gray-900 leading-none mb-4 uppercase tracking-tighter">
                 Initiate<br /><span className="text-blue-600">Broadcast.</span>
-              </h3>
+              </h2>
               <p className="text-gray-500 font-mono text-xs uppercase leading-relaxed tracking-tight">
                 Establishing point-to-point secure transmission. My inbox is open for collaborations, research, or system inquiries.
               </p>
