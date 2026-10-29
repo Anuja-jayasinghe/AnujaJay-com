@@ -1,0 +1,13 @@
+/* TEAM */
+Developer: Anuja Jayasinghe
+Contact: anujajayasinhe@gmail.com
+GitHub: https://github.com/Anuja-jayasinghe
+LinkedIn: https://linkedin.com/in/anuja-jayasinghe
+
+/* SITE */
+Built with: Next.js, React, TypeScript, Tailwind CSS, Framer Motion
+Hosting: Vercel
+Source: https://github.com/Anuja-jayasinghe/AnujaJay-com
+
+/* THANKS */
+You, for reading humans.txt.
