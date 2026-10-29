@@ -1,22 +1,57 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-    // Lock body scroll when menu is open
+    const dialogRef = useRef<HTMLDivElement>(null);
+
+    // Lock body scroll when menu is open, restoring whatever was set before
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
+        if (!isOpen) return;
+        const previous = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
         return () => {
-            document.body.style.overflow = "unset";
+            document.body.style.overflow = previous;
         };
     }, [isOpen]);
+
+    // Move focus into the dialog, close on Escape, keep Tab inside, then
+    // hand focus back to whatever opened the menu.
+    useEffect(() => {
+        if (!isOpen) return;
+        const opener = document.activeElement as HTMLElement | null;
+        dialogRef.current?.querySelector<HTMLElement>("button")?.focus();
+
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                onClose();
+                return;
+            }
+            if (event.key !== "Tab" || !dialogRef.current) return;
+            const items = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+            if (items.length === 0) return;
+            const first = items[0];
+            const last = items[items.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        };
+
+        document.addEventListener("keydown", onKeyDown);
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+            opener?.focus();
+        };
+    }, [isOpen, onClose]);
 
     const navLinks = [
         { name: "Home", href: "#home" },
@@ -33,12 +68,15 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
         <AnimatePresence>
             {isOpen && (
                 <motion.div
+                    ref={dialogRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Site menu"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                    className="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center"
-                    style={{ width: "100vw", height: "100vh", top: 0, left: 0 }}
+                    className="fixed inset-0 z-[200] h-dvh bg-black flex flex-col items-center justify-center"
                 >
                     {/* Close Button - Top Right */}
                     <button
@@ -80,6 +118,9 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    // Stable identity: the menu's focus effect depends on it, and this
+    // component re-renders on every scroll threshold change.
+    const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 20);
@@ -154,7 +195,7 @@ export default function Navbar() {
             </header>
 
             {/* Fullscreen Menu - rendered via portal to document.body */}
-            <FullscreenMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+            <FullscreenMenu isOpen={isMenuOpen} onClose={closeMenu} />
 
             <style jsx global>{`
                 .no-scrollbar::-webkit-scrollbar {
