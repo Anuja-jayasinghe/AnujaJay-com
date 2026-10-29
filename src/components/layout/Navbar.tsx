@@ -108,6 +108,10 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
                             </motion.div>
                         ))}
                     </nav>
+
+                    <p className="absolute bottom-6 hidden px-4 text-center text-xs text-white/60 md:block">
+                        Tip: press <kbd className="rounded border border-white/30 px-1.5 py-0.5">Ctrl</kbd>/<kbd className="rounded border border-white/30 px-1.5 py-0.5">⌘</kbd> + <kbd className="rounded border border-white/30 px-1.5 py-0.5">K</kbd> to jump anywhere
+                    </p>
                 </motion.div>
             )}
         </AnimatePresence>,

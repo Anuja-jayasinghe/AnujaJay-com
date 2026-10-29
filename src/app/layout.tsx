@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Turret_Road, Numans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import CommandPalette from "@/components/ui/CommandPalette";
 import ConsoleBanner from "@/components/ui/ConsoleBanner";
 import GoToTopButton from "@/components/ui/GoToTopButton";
 import KonamiTerminal from "@/components/ui/KonamiTerminal";
@@ -121,6 +122,7 @@ export default function RootLayout({
         <GoToTopButton />
         <ConsoleBanner />
         <KonamiTerminal />
+        <CommandPalette />
       </body>
     </html>
   );
