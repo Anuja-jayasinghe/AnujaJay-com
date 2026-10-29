@@ -118,6 +118,8 @@ function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    // Recent logo click times, for the 5-clicks-replays-the-intro easter egg.
+    const logoClicks = useRef<number[]>([]);
     // Stable identity: the menu's focus effect depends on it, and this
     // component re-renders on every scroll threshold change.
     const closeMenu = useCallback(() => setIsMenuOpen(false), []);
@@ -143,6 +145,18 @@ export default function Navbar() {
                     <Link
                         href="/"
                         onClick={(e) => {
+                            // Easter egg: five quick clicks replay the signature intro.
+                            const now = Date.now();
+                            logoClicks.current = [...logoClicks.current, now].filter((t) => now - t < 2000);
+                            if (logoClicks.current.length >= 5) {
+                                logoClicks.current = [];
+                                e.preventDefault();
+                                // Full reload on purpose: the splash reads ?intro=replay only on mount,
+                                // so a client-side router push would not replay it.
+                                // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+                                window.location.href = "/?intro=replay";
+                                return;
+                            }
                             if (window.location.pathname === '/' || window.location.hash) {
                                 e.preventDefault();
                                 window.scrollTo({ top: 0, behavior: "smooth" });
