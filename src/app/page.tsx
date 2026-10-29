@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import SplashScreen from "@/components/layout/SplashScreen";
 import Navbar from "@/components/layout/Navbar";
@@ -6,6 +7,7 @@ import About from "@/components/sections/About";
 import Portfolio from "@/components/sections/Portfolio";
 import Skills from "@/components/sections/Skills";
 import Contact from "@/components/sections/Contact";
+import { GitHubActivityStatus } from "@/components/sections/GitHubActivityStatus";
 import Footer from "@/components/layout/Footer";
 
 export function generateMetadata(): Metadata {
@@ -39,7 +41,13 @@ export default function Home() {
         <About />
         <Portfolio />
         <Skills />
-        <Contact />
+        <Contact
+          statusSlot={
+            <Suspense fallback={<div className="h-[104px] rounded border border-gray-200 bg-gray-100/50 animate-pulse" />}>
+              <GitHubActivityStatus username="Anuja-jayasinghe" />
+            </Suspense>
+          }
+        />
       </div>
       <Footer />
     </main>
