@@ -45,13 +45,22 @@ export default function Contact() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+    if (!accessKey) {
+      // Fail visibly instead of posting an empty key to the form service.
+      setStatus("error");
+      setErrorMsg("UPLINK_FAILURE: FORM_NOT_CONFIGURED. PLEASE EMAIL ME DIRECTLY.");
+      return;
+    }
+
     setStatus("sending");
     setErrorMsg("");
 
     const form = e.currentTarget;
     const formData = new FormData(form);
 
-    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "");
+    formData.append("access_key", accessKey);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -188,6 +197,15 @@ export default function Contact() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-8 relative">
+                    {/* Honeypot: hidden from people, filled by bots. Web3Forms drops submissions where it is checked. */}
+                    <input
+                      type="checkbox"
+                      name="botcheck"
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                    />
                     {/* Background CRT Scanline Effect for inputs */}
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="space-y-3">
