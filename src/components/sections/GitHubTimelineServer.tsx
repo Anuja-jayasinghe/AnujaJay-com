@@ -9,15 +9,15 @@ interface GitHubTimelineServerProps {
 }
 
 /**
- * Error display component
+ * Error display component. The real error is logged on the server; visitors
+ * only see a generic message so configuration details never reach the page.
  */
-function ErrorDisplay({ error }: { error: Error }) {
+function ErrorDisplay() {
   return (
-    <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
-      <p className="text-sm font-semibold">Failed to load contributions</p>
+    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-gray-700">
+      <p className="text-sm font-semibold">GitHub activity is unavailable right now</p>
       <p className="text-xs">
-        {error.message ||
-          "An unknown error occurred while fetching your GitHub data."}
+        Please check back later, or see my profile on GitHub directly.
       </p>
     </div>
   );
@@ -30,8 +30,7 @@ function EmptyState() {
   return (
     <div className="rounded-lg border border-gray-200 bg-yellow-50 p-4 text-yellow-800">
       <p className="text-sm">
-        No contributions found for the specified years. Please check your
-        username and try again.
+        No GitHub activity to show yet. Please check back later.
       </p>
     </div>
   );
@@ -58,7 +57,8 @@ async function GitHubTimelineContent({
   }
 
   if (error) {
-    return <ErrorDisplay error={error} />;
+    console.error("GitHub timeline failed to load:", error);
+    return <ErrorDisplay />;
   }
 
   if (!contributions || !contributions.length) {
