@@ -51,7 +51,7 @@ original "Initiate Broadcast" status panel are back.
 
 | ID | Commit | What | How to find it |
 |---|---|---|---|
-| E1 | `51cd4b1` | Console banner | Open DevTools |
+| E1 | `51cd4b1` | Console banner (superseded by E1b) | Open DevTools |
 | E2 | `f765248` | Fake-login terminal | ↑ ↑ ↓ ↓ ← → ← → B A |
 | E3 | `3378a2a` | Replay the signature intro | Click the logo 5 times within 2 s |
 | E4 | `be4eab1` | `/humans.txt`, `/.well-known/security.txt` | Visit the URLs. **security.txt expires 2027-10-29; renew it.** |
@@ -59,6 +59,15 @@ original "Initiate Broadcast" status panel are back.
 | E6 | `034c901` | Quick-jump command palette | Ctrl/Cmd+K or `/` (tip shown in the desktop menu) |
 
 E1, E2 and E6 each add one line to `layout.tsx`; E3 and E6 touch `Navbar.tsx`.
+
+### Added after the first preview review
+
+| ID | Commit | What |
+|---|---|---|
+| H1 | `84316b1` | Fixes the React #418 hydration error: the GitHub timeline read the clock/timezone/locale while rendering, so server and browser HTML could differ. "Today" is now passed in from the server, dates use UTC, numbers use `en-US`. Adds a regression test (fails on the old code). Existing bug, not introduced by this PR. |
+| H2 | `2895883` | Allows the Vercel Live toolbar in **preview builds only** (the CSP was blocking its script). Production CSP unchanged. |
+| E1b | `88432ff` | Console banner is now a hidden ASCII bio: big "ANUJA JAY" lettering, a congratulations, a two-line intro, the source link. |
+| E5b | `a29f872` | 404 is an interactive mini-terminal: real missing path, "did you mean" suggestion, commands (`help`, `ls`, `cd <place>`, `cat resume`, `pwd`, `whoami`, `cowsay`, `sudo`, `clear`) plus one-tap chips for phones. |
 
 ## Not done, and why
 
