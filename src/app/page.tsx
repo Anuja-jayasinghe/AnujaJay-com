@@ -24,10 +24,17 @@ export function generateMetadata(): Metadata {
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col bg-white w-full overflow-x-hidden relative">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded focus:bg-black focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:font-bold focus:text-white"
+      >
+        Skip to content
+      </a>
       <SplashScreen />
       <noscript><style>{".splash-screen{display:none}"}</style></noscript>
       <Navbar />
-      <div className="w-full overflow-x-hidden relative">
+      {/* Skip-link target: after the navbar, so keyboard users bypass it. */}
+      <div id="main-content" tabIndex={-1} className="w-full overflow-x-hidden relative focus:outline-none">
         <Hero />
         <About />
         <Portfolio />

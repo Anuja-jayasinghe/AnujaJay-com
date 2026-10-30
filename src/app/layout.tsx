@@ -2,7 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Turret_Road, Numans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import CommandPalette from "@/components/ui/CommandPalette";
+import ConsoleBanner from "@/components/ui/ConsoleBanner";
 import GoToTopButton from "@/components/ui/GoToTopButton";
+import KonamiTerminal from "@/components/ui/KonamiTerminal";
+import MotionProvider from "@/components/ui/MotionProvider";
 import { getPersonJsonLd, getWebsiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -92,6 +96,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#000075",
 };
 
 export default function RootLayout({
@@ -108,12 +113,16 @@ export default function RootLayout({
       >
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          // Escape "<" so no string in the payload can close the script tag.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
         />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
         <SpeedInsights />
         <GoToTopButton />
+        <ConsoleBanner />
+        <KonamiTerminal />
+        <CommandPalette />
       </body>
     </html>
   );

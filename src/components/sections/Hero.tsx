@@ -3,7 +3,7 @@ export default function Hero() {
         <section id="home" className="min-h-[75svh] sm:min-h-[85svh] lg:min-h-[90svh] flex items-center py-24 sm:py-32">
             <div className="site-shell">
                 <div className="max-w-[1200px]">
-                    <h2 className="text-[clamp(1rem,1.5vw,1.5rem)] font-mono text-accent mb-4 sm:mb-6">Hello, it&apos;s me</h2>
+                    <p className="text-[clamp(1rem,1.5vw,1.5rem)] font-mono text-accent mb-4 sm:mb-6">Hello, it&apos;s me</p>
                     <h1 className="hero-title font-bold font-sans mb-6 sm:mb-8 text-black">
                         Anuja Jayasinghe.
                     </h1>

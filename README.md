@@ -11,7 +11,7 @@ This is a personal asset, not a template for others to clone and run — this RE
 - **`/cv` and `/resume` shortcuts** - Both permanently redirect straight to the CV PDF, via Next.js's built-in `redirects()` config (`next.config.ts`), so anyone can jump to my resume without hunting for a link.
 - **Splash screen + smooth animations** - The vector signature draws with CSS, then Framer Motion reveals the portfolio.
 - **Fully responsive** - Mobile-friendly navbar, layout, and sections.
-- **Dark-themed design** - Modern, professional dark UI end to end.
+- **Light, minimal design** - A clean white layout with terminal- and server-rack-inspired accents (dark UI panels appear only inside the terminal and rack widgets).
 - **Vercel Analytics & Speed Insights** built in for real usage/performance data.
 
 ## 🛠️ Tech Stack

@@ -28,6 +28,10 @@ jobs:
         run: npm ci
 
       # --if-present means a repo without this script passes rather than fails.
+      # Production dependencies only; dev-only advisories don't ship to visitors.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
       - name: Lint
         run: npm run lint --if-present
 
