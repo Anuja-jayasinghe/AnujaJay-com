@@ -72,6 +72,7 @@ async function GitHubTimelineContent({
   return (
     <GitHubTimeline
       contributions={contributions}
+      today={new Date().toISOString().slice(0, 10)}
       totalStars={stats?.totalStars}
     />
   );

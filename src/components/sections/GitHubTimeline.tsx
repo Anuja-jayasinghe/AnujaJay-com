@@ -11,7 +11,19 @@ interface ContributionDay {
 
 interface GitHubTimelineProps {
   contributions: ContributionDay[];
+  /**
+   * Today's date (YYYY-MM-DD, UTC), decided once on the server. Rendering must
+   * not read the clock itself: the server and the browser would disagree
+   * whenever the page is served after a day boundary or from another timezone,
+   * which breaks hydration.
+   */
+  today: string;
   totalStars?: number;
+}
+
+/** Parses a YYYY-MM-DD string as UTC midnight so results don't depend on the viewer's timezone. */
+function parseDay(date: string): Date {
+  return new Date(`${date}T00:00:00Z`);
 }
 
 /**
@@ -66,12 +78,12 @@ function organizeIntoWeeks(contributions: ContributionDay[]): WeekWithMeta[] {
   };
 
   contributions.forEach((day) => {
-    const date = new Date(day.date);
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const startOfYear = new Date(year, 0, 1);
+    const date = parseDay(day.date);
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const startOfYear = new Date(Date.UTC(year, 0, 1));
     const weekNum = Math.ceil(
-      ((date.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getDay() + 1) / 7
+      ((date.getTime() - startOfYear.getTime()) / 86400000 + startOfYear.getUTCDay() + 1) / 7
     );
     const weekKey = `${year}-${weekNum}`;
 
@@ -82,14 +94,14 @@ function organizeIntoWeeks(contributions: ContributionDay[]): WeekWithMeta[] {
     }
 
     if (weekKey !== lastWeekKey) {
-      const firstDay = currentWeek[0] ? new Date(currentWeek[0].date) : null;
+      const firstDay = currentWeek[0] ? parseDay(currentWeek[0].date) : null;
       let monthLabel: string | undefined;
       let yearLabel: string | undefined;
       let isFirstWeekOfYear: boolean | undefined;
 
       if (firstDay) {
-        const fm = firstDay.getMonth();
-        const fy = firstDay.getFullYear();
+        const fm = firstDay.getUTCMonth();
+        const fy = firstDay.getUTCFullYear();
         if (fy !== lastSeenYear) {
           yearLabel = String(fy);
           isFirstWeekOfYear = true;
@@ -110,9 +122,9 @@ function organizeIntoWeeks(contributions: ContributionDay[]): WeekWithMeta[] {
   });
 
   if (currentWeek.length > 0) {
-    const firstDay = new Date(currentWeek[0]!.date);
-    const fm = firstDay.getMonth();
-    const fy = firstDay.getFullYear();
+    const firstDay = parseDay(currentWeek[0]!.date);
+    const fm = firstDay.getUTCMonth();
+    const fy = firstDay.getUTCFullYear();
     let monthLabel: string | undefined;
     let yearLabel: string | undefined;
     let isFirstWeekOfYear: boolean | undefined;
@@ -142,8 +154,9 @@ function ContributionSquare({ day }: { day?: ContributionDay }) {
   const hoverColor =
     level === 0 ? "hover:bg-gray-200" : "hover:opacity-80 transition-opacity";
 
-  const dateObj = new Date(day.date);
+  const dateObj = parseDay(day.date);
   const formattedDate = dateObj.toLocaleDateString("en-US", {
+    timeZone: "UTC",
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -170,17 +183,14 @@ function ContributionSquare({ day }: { day?: ContributionDay }) {
  */
 export function GitHubTimeline({
   contributions,
+  today,
   totalStars: passedTotalStars,
 }: GitHubTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  // Filter out future contributions
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-  const nonFutureContributions = contributions.filter(
-    (d) => new Date(d.date) <= today
-  );
+  // Filter out future contributions (YYYY-MM-DD strings compare correctly as text)
+  const nonFutureContributions = contributions.filter((d) => d.date <= today);
   const weeks = organizeIntoWeeks(nonFutureContributions);
 
   // Calculate stats
@@ -211,7 +221,7 @@ export function GitHubTimeline({
           Development Activity
         </h3>
         <p className="text-sm text-gray-600">
-          {new Date(contributions[0]?.date).getFullYear()} - today{" "}
+          {contributions[0]?.date.slice(0, 4)} - today{" "}
           — Contribution heatmap showing my GitHub activity
         </p>
       </div>
@@ -289,7 +299,7 @@ export function GitHubTimeline({
             Total Contributions
           </p>
           <p className="text-2xl font-bold text-accent">
-            {totalContributions.toLocaleString()}
+            {totalContributions.toLocaleString("en-US")}
           </p>
         </div>
         <div className="space-y-1">
