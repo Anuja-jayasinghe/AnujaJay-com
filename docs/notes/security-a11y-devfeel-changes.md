@@ -67,7 +67,8 @@ E1, E2 and E6 each add one line to `layout.tsx`; E3 and E6 touch `Navbar.tsx`.
 | H1 | `84316b1` | Fixes the React #418 hydration error: the GitHub timeline read the clock/timezone/locale while rendering, so server and browser HTML could differ. "Today" is now passed in from the server, dates use UTC, numbers use `en-US`. Adds a regression test (fails on the old code). Existing bug, not introduced by this PR. |
 | H2 | `2895883` | Allows the Vercel Live toolbar in **preview builds only** (the CSP was blocking its script). Production CSP unchanged. |
 | E1b | `88432ff` | Console banner is now a hidden ASCII bio: big "ANUJA JAY" lettering, a congratulations, a two-line intro, the source link. |
-| E5b | `a29f872` | 404 is an interactive mini-terminal: real missing path, "did you mean" suggestion, commands (`help`, `ls`, `cd <place>`, `cat resume`, `pwd`, `whoami`, `cowsay`, `sudo`, `clear`) plus one-tap chips for phones. |
+| E5b | `a29f872` | 404 is an interactive mini-terminal: real missing path, "did you mean" suggestion, commands (`help`, `ls`, `cd <place>`, `cat resume`, `pwd`, `whoami`, `cowsay`, `sudo`, `clear`) typed and submitted with Enter. |
+| E5c | `250cd0e` | 404 page made bigger (wider window, larger lettering and text); the command chips and Run button were removed from "Or poke around". |
 
 ## Not done, and why
 
