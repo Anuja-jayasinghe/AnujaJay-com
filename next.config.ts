@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
+// Vercel injects its feedback/comments toolbar into preview deployments only.
+// Its hosts are allowed there so previews stay usable; production never gets them.
+const isPreview = process.env.VERCEL_ENV === "preview";
+const live = (extra = "") => (isPreview ? ` https://vercel.live${extra}` : "");
 
 // Header-based CSP (no nonces) so the page stays statically rendered and
 // CDN-cacheable. 'unsafe-inline' is needed for Next's inline bootstrap
@@ -8,17 +12,17 @@ const isDev = process.env.NODE_ENV === "development";
 // plugins, base-tag injection and unexpected connection targets.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}${live()}`,
+  `style-src 'self' 'unsafe-inline'${live()}`,
   // next/image skips its optimizer for SVGs, so the devicon icons load straight
   // from jsDelivr; GitHub's OG images are the other allowed remote host.
-  "img-src 'self' data: blob: https://cdn.jsdelivr.net https://opengraph.githubassets.com",
-  "font-src 'self'",
+  `img-src 'self' data: blob: https://cdn.jsdelivr.net https://opengraph.githubassets.com${live(" https://vercel.com")}`,
+  `font-src 'self'${live(" https://assets.vercel.com")}`,
   "media-src 'self'",
   // Web3Forms receives the contact form; Vercel Analytics/Speed Insights are same-origin.
-  `connect-src 'self' https://api.web3forms.com${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' https://api.web3forms.com${isDev ? " ws: wss:" : ""}${live(" wss://ws-us3.pusher.com")}`,
   // The resume page frames its own PDF.
-  "frame-src 'self'",
+  `frame-src 'self'${live()}`,
   "manifest-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
