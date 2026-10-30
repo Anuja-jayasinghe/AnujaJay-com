@@ -1,4 +1,6 @@
 import Link from "next/link";
+import NotFoundTerminal from "@/components/ui/NotFoundTerminal";
+import { FOUR_OH_FOUR_ART } from "@/lib/ascii-art";
 
 export default function NotFound() {
   return (
@@ -13,14 +15,14 @@ export default function NotFound() {
         </div>
 
         <div className="bg-gray-900 p-6 sm:p-10">
-          <div className="space-y-1 text-sm leading-relaxed text-green-400" aria-hidden="true">
-            <p className="text-blue-300">$ cd /this-page</p>
-            <p>bash: cd: /this-page: No such file or directory</p>
-            <p className="text-blue-300">$ echo $?</p>
-            <p>404</p>
-          </div>
+          <pre
+            className="overflow-x-auto text-[11px] leading-tight text-green-400 sm:text-sm"
+            aria-hidden="true"
+          >
+            {FOUR_OH_FOUR_ART.join("\n")}
+          </pre>
 
-          <h1 className="mt-8 font-sans text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="mt-6 font-sans text-3xl sm:text-4xl font-bold tracking-tight text-white">
             This page doesn&apos;t exist.
           </h1>
           <p className="mt-3 font-sans text-base sm:text-lg text-gray-300">
@@ -41,6 +43,11 @@ export default function NotFound() {
               Contact Me
             </Link>
           </div>
+
+          <p className="mt-10 mb-3 text-[11px] font-bold uppercase tracking-widest text-gray-400">
+            Or poke around
+          </p>
+          <NotFoundTerminal />
         </div>
       </div>
     </main>
