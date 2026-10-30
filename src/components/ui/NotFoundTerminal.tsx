@@ -11,16 +11,13 @@ interface Entry {
   text: string;
 }
 
-// One-tap versions of the commands, for phones and anyone who'd rather not type.
-const CHIPS = ["help", "ls", "cd projects", "cat resume", "cowsay"];
-
 const subscribeNothing = () => () => {};
 // Client-only value read the hydration-safe way: "" on the server and during
 // hydration, the real path afterwards.
 const readPath = () => window.location.pathname;
 const readNoPath = () => "";
 
-/** A small playable terminal for the 404 page. Everything here is also reachable with the normal buttons. */
+/** A small typed-command terminal for the 404 page. Everything here is also reachable with the normal buttons. */
 export default function NotFoundTerminal() {
   const router = useRouter();
   const path = useSyncExternalStore(subscribeNothing, readPath, readNoPath);
@@ -58,7 +55,7 @@ export default function NotFoundTerminal() {
   };
 
   return (
-    <div className="rounded border border-white/10 bg-black/40 p-4 text-sm leading-relaxed">
+    <div className="rounded border border-white/10 bg-black/40 p-5 text-base leading-relaxed sm:p-6 sm:text-lg">
       <div className="space-y-1 text-green-400" aria-hidden="true">
         <p className="text-blue-300">$ cd {shownPath}</p>
         <p>bash: cd: {shownPath}: No such file or directory</p>
@@ -81,7 +78,7 @@ export default function NotFoundTerminal() {
         role="log"
         aria-live="polite"
         aria-label="Terminal output"
-        className="mt-3 max-h-56 space-y-0.5 overflow-y-auto text-green-400"
+        className="mt-4 max-h-72 space-y-0.5 overflow-y-auto text-green-400"
       >
         {entries.map((entry) => (
           <p
@@ -93,7 +90,7 @@ export default function NotFoundTerminal() {
         ))}
       </div>
 
-      <form onSubmit={onSubmit} className="mt-3 flex items-center gap-2">
+      <form onSubmit={onSubmit} className="mt-4 flex items-center gap-2">
         <label htmlFor="not-found-command" className="shrink-0 text-blue-300">
           <span aria-hidden="true">$</span>
           <span className="sr-only">Type a command</span>
@@ -105,29 +102,10 @@ export default function NotFoundTerminal() {
           autoComplete="off"
           autoCapitalize="off"
           spellCheck={false}
-          placeholder="type help, or tap a command below"
+          placeholder="type help and press Enter"
           className="min-w-0 flex-1 bg-transparent text-green-300 placeholder:text-gray-500 focus:outline-none"
         />
-        <button
-          type="submit"
-          className="rounded border border-white/30 px-3 py-1 text-xs font-bold text-white hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
-          Run
-        </button>
       </form>
-
-      <div className="mt-3 flex flex-wrap gap-2">
-        {CHIPS.map((chip) => (
-          <button
-            key={chip}
-            type="button"
-            onClick={() => run(chip)}
-            className="rounded border border-green-400/40 px-2.5 py-1 text-xs text-green-300 hover:bg-green-400/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            {chip}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
